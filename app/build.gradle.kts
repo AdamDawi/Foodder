@@ -70,11 +70,12 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation("android.arch.lifecycle:viewmodel:1.1.1")
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.46")
+    kapt("com.google.dagger:hilt-android-compiler:2.46")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.google.code.gson:gson:2.10.1")
-
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    //for hiltViewModel()
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 }
 
 kapt {

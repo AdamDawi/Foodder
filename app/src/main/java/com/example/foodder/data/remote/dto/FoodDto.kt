@@ -17,5 +17,5 @@ fun FoodDto.toFood(): Meal {
             strMealThumb = it.strMealThumb
         )
     }
-    return meal?: Meal("", "", "", "")
+    return meal?: Meal()
 }
