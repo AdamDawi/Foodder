@@ -19,7 +19,13 @@ fun MainScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = if(state.meal.isNotEmpty()) state.meal[0].strMeal else "empty")
+        Text(text =
+        if(!state.isLoading && state.meal.isNotEmpty())
+            state.meal[0].strMeal
+        else if(state.isLoading) "loading"
+        else if(state.error.isNotEmpty()) "Error: ${state.error}"
+        else "Empty"
+        )
     }
 
 }

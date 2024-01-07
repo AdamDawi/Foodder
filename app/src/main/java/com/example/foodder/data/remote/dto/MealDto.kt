@@ -1,5 +1,7 @@
 package com.example.foodder.data.remote.dto
 
+import com.example.foodder.domain.model.Meal
+
 data class MealDto(
     val dateModified: Any,
     val idMeal: String,
@@ -55,3 +57,10 @@ data class MealDto(
     val strTags: String,
     val strYoutube: String
 )
+
+fun MealDto.toMeal(): Meal {
+    return Meal(strCategory = strCategory,
+            strInstructions = strInstructions,
+            strMeal = strMeal,
+            strMealThumb = strMealThumb)
+}

@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface FoodApi {
     @GET("v1/1/random.php")
-    suspend fun getRandomFood(): List<FoodDto>
+    suspend fun getRandomFood(): FoodDto
 }
