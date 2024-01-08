@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.foodder"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -61,6 +61,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.wear.compose:compose-material:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -76,6 +77,10 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //for hiltViewModel()
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    //image loading
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    //anchored
+    implementation("androidx.compose.foundation:foundation:1.6.0-beta03")
 }
 
 kapt {
