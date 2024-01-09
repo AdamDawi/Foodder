@@ -1,5 +1,6 @@
 package com.example.foodder.presentation.main_screen
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.geometry.Offset
@@ -12,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
+
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -48,5 +50,23 @@ class MainViewModel @Inject constructor(
                 _state.value.imageOffset.y+dragAmount.y
             )
         )
+    }
+
+    private fun resetImageOffset(){
+        _state.value = _state.value.copy(imageOffset = Offset(0f, 0f))
+    }
+
+    fun checkSwipeBounds() {
+        if(state.value.imageOffset.x>120 && !state.value.isLoading){
+            resetImageOffset()
+            getRandomFood()
+            Log.e("Swipe", "Right")
+        }
+        else if(state.value.imageOffset.x<-120 && !state.value.isLoading){
+            resetImageOffset()
+            getRandomFood()
+            Log.e("Swipe", "Left")
+        }
+        else resetImageOffset()
     }
 }

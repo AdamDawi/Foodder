@@ -7,5 +7,5 @@ data class MainState(
     val isLoading: Boolean = false,
     val meal: Meal = Meal(),
     val error: String = "",
-    val imageOffset: Offset = Offset(0f, 0f)
+    val imageOffset: Offset = Offset(0f, 0f),
 )

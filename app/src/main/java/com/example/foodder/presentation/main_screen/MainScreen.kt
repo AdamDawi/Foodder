@@ -37,25 +37,31 @@ fun MainScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        //screen parameters
-//        val density = LocalDensity.current.density
-//        val configuration = LocalConfiguration.current
-//        val screenWidth = configuration.screenWidthDp / density
-//        val screenHeight = configuration.screenHeightDp / density
-
         Box(modifier = Modifier
-            .offset { IntOffset(state.imageOffset.x.roundToInt(), state.imageOffset.y.roundToInt()) }
+            .offset {
+                IntOffset(
+                    state.imageOffset.x.roundToInt(),
+                    state.imageOffset.y.roundToInt()
+                )
+            }
             .fillMaxSize()
             .padding(bottom = 200.dp)
             .clip(RoundedCornerShape(10.dp))
             .pointerInput(Unit) {
-                detectDragGestures { change, dragAmount ->
-                    change.consume()
-                    viewModel.changeImageOffset(dragAmount)
-                }
+                detectDragGestures(
+                    onDragEnd = {
+                        viewModel.checkSwipeBounds()
+                    },
+                    onDragCancel = {
+                        viewModel.checkSwipeBounds()
+                    },
+                    onDrag = { change, dragAmount ->
+                        change.consume()
+                        viewModel.changeImageOffset(dragAmount)
+                    }
+                )
             }
         ){
-
             AsyncImage(
                 model = state.meal.strMealThumb,
                 contentDescription = "Meal image",
