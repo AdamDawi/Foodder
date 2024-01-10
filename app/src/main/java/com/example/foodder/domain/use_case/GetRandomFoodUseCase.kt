@@ -1,4 +1,4 @@
-package com.example.foodder.domain.use_case.get_random_food
+package com.example.foodder.domain.use_case
 
 import com.example.foodder.common.Resource
 import com.example.foodder.data.remote.dto.toMeal
@@ -22,7 +22,5 @@ class GetRandomFoodUseCase @Inject constructor(
         }catch (e: Exception){
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error"))
         }
-
-
     }
 }

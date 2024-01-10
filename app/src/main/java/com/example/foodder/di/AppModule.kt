@@ -4,6 +4,7 @@ import com.example.foodder.common.Constants.BASE_URL
 import com.example.foodder.data.remote.FoodApi
 import com.example.foodder.data.repository.FoodRepositoryImpl
 import com.example.foodder.domain.repository.FoodRepository
+import com.example.foodder.domain.use_case.GetRandomFoodUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,5 +32,12 @@ object AppModule {
     @Singleton
     fun provideFoodRepository(api: FoodApi): FoodRepository{
         return FoodRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    //if more use cases just make data class with it and only provide this data class
+    fun provideGetRandomUseCase(repository: FoodRepository): GetRandomFoodUseCase{
+        return GetRandomFoodUseCase(repository)
     }
 }

@@ -4,12 +4,15 @@ import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.foodder.common.Constants
 import com.example.foodder.common.Resource
 import com.example.foodder.domain.model.Meal
-import com.example.foodder.domain.use_case.get_random_food.GetRandomFoodUseCase
+import com.example.foodder.domain.use_case.GetRandomFoodUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -22,12 +25,15 @@ class MainViewModel @Inject constructor(
     private val _state = mutableStateOf(MainState())
     val state: State<MainState> = _state
 
+    private var getRandomFoodJob: Job? = null
+
     init {
         getRandomFood()
     }
 
     private fun getRandomFood(){
-        getRandomFoodUseCase().onEach { result ->
+        getRandomFoodJob?.cancel()
+        getRandomFoodJob = getRandomFoodUseCase().onEach { result ->
             when(result){
                 is Resource.Success -> {
                     _state.value = MainState(meal = result.data?.get(0) ?: Meal())
@@ -42,7 +48,7 @@ class MainViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun changeImageOffset(dragAmount: Offset) {
+    fun changeImageOffsetState(dragAmount: Offset) {
         _state.value = _state.value.copy(
             imageOffset =
             Offset(
@@ -50,6 +56,13 @@ class MainViewModel @Inject constructor(
                 _state.value.imageOffset.y+dragAmount.y
             )
         )
+        if(state.value.imageOffset.x>Constants.OFFSET_LIMIT) setCardBorderColorState(Color.Green)
+        else if(state.value.imageOffset.x<-Constants.OFFSET_LIMIT) setCardBorderColorState(Color.Red)
+        else setCardBorderColorState(Color.Transparent)
+    }
+
+    private fun setCardBorderColorState(col: Color){
+        _state.value = _state.value.copy(cardBorderColor = col)
     }
 
     private fun resetImageOffset(){
@@ -57,13 +70,15 @@ class MainViewModel @Inject constructor(
     }
 
     fun checkSwipeBounds() {
-        if(state.value.imageOffset.x>120 && !state.value.isLoading){
+        if(state.value.imageOffset.x>Constants.OFFSET_LIMIT && !state.value.isLoading){
             resetImageOffset()
+            setCardBorderColorState(Color.Transparent)
             getRandomFood()
             Log.e("Swipe", "Right")
         }
-        else if(state.value.imageOffset.x<-120 && !state.value.isLoading){
+        else if(state.value.imageOffset.x<-Constants.OFFSET_LIMIT && !state.value.isLoading){
             resetImageOffset()
+            setCardBorderColorState(Color.Transparent)
             getRandomFood()
             Log.e("Swipe", "Left")
         }
