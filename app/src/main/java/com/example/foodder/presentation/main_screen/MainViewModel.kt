@@ -11,6 +11,8 @@ import com.example.foodder.common.Constants
 import com.example.foodder.common.Resource
 import com.example.foodder.domain.model.Meal
 import com.example.foodder.domain.use_case.GetRandomFoodUseCase
+import com.example.foodder.presentation.ui.theme.GreenBlue
+import com.example.foodder.presentation.ui.theme.RedPink
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
@@ -39,7 +41,7 @@ class MainViewModel @Inject constructor(
                     _state.value = MainState(meal = result.data?.get(0) ?: Meal())
                 }
                 is Resource.Error -> {
-                    _state.value = MainState(error = result.message ?: "An unexpected error")
+                    _state.value = MainState(errorMessage = result.message ?: "An unexpected error")
                 }
                 is Resource.Loading -> {
                     _state.value = MainState(isLoading = true)
@@ -48,35 +50,39 @@ class MainViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun changeImageOffsetState(dragAmount: Offset) {
+    fun onCardDrag(dragAmount: Offset) {
         _state.value = _state.value.copy(
-            imageOffset =
+            cardOffset =
             Offset(
-                _state.value.imageOffset.x+dragAmount.x,
-                _state.value.imageOffset.y+dragAmount.y
+                _state.value.cardOffset.x+dragAmount.x,
+                _state.value.cardOffset.y+dragAmount.y
             )
         )
-        if(state.value.imageOffset.x>Constants.OFFSET_LIMIT) setCardBorderColorState(Color.Green)
-        else if(state.value.imageOffset.x<-Constants.OFFSET_LIMIT) setCardBorderColorState(Color.Red)
+        if(state.value.cardOffset.x>Constants.OFFSET_LIMIT) setCardBorderColorState(GreenBlue)
+        else if(state.value.cardOffset.x<-Constants.OFFSET_LIMIT) setCardBorderColorState(RedPink)
         else setCardBorderColorState(Color.Transparent)
     }
 
-    private fun setCardBorderColorState(col: Color){
-        _state.value = _state.value.copy(cardBorderColor = col)
+    fun changeIsCardFlippedState(){
+        _state.value = _state.value.copy(isCardFlipped = !_state.value.isCardFlipped)
+    }
+
+    private fun setCardBorderColorState(color: Color){
+        _state.value = _state.value.copy(cardBorderColor = color)
     }
 
     private fun resetImageOffset(){
-        _state.value = _state.value.copy(imageOffset = Offset(0f, 0f))
+        _state.value = _state.value.copy(cardOffset = Offset(0f, 0f))
     }
 
     fun checkSwipeBounds() {
-        if(state.value.imageOffset.x>Constants.OFFSET_LIMIT && !state.value.isLoading){
+        if(state.value.cardOffset.x>Constants.OFFSET_LIMIT && !state.value.isLoading){
             resetImageOffset()
             setCardBorderColorState(Color.Transparent)
             getRandomFood()
             Log.e("Swipe", "Right")
         }
-        else if(state.value.imageOffset.x<-Constants.OFFSET_LIMIT && !state.value.isLoading){
+        else if(state.value.cardOffset.x<-Constants.OFFSET_LIMIT && !state.value.isLoading){
             resetImageOffset()
             setCardBorderColorState(Color.Transparent)
             getRandomFood()

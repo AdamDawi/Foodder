@@ -7,7 +7,8 @@ import com.example.foodder.domain.model.Meal
 data class MainState(
     val isLoading: Boolean = false,
     val meal: Meal = Meal(),
-    val error: String = "",
-    val imageOffset: Offset = Offset(0f, 0f),
-    val cardBorderColor: Color = Color.Transparent
+    val errorMessage: String = "",
+    val cardOffset: Offset = Offset(0f, 0f),
+    val cardBorderColor: Color = Color.Transparent,
+    val isCardFlipped: Boolean = false
 )

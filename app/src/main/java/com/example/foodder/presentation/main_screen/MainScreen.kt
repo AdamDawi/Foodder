@@ -32,11 +32,22 @@ fun MainScreen(
         ){
             Box(modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 50.dp, bottom = 250.dp, start = 50.dp, end = 50.dp)
-                .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_SIZE))
+                .padding(top = 150.dp, bottom = 150.dp, start = 50.dp, end = 50.dp)
+                .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
                 .background(Color.LightGray)
             )
-            MealCard(viewModel)
+            MealCard(
+                state = viewModel.state.value,
+                onDrag = { dragAmount ->
+                    viewModel.onCardDrag(dragAmount)
+                },
+                onDragEnd = {
+                    viewModel.checkSwipeBounds()
+                },
+                changeIsCardFrontState = {
+                    viewModel.changeIsCardFlippedState()
+                }
+            )
         }
 
     }
