@@ -47,7 +47,7 @@ fun MealCard(
     val alphaImage = animateFloatAsState(
         targetValue = if(!state.isCardFlipped) 1f else 0f,
         animationSpec = tween(
-            durationMillis = 450,
+            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME-150,
             easing = LinearOutSlowInEasing
         ),
         label = ""
@@ -56,7 +56,7 @@ fun MealCard(
     val alphaDescription = animateFloatAsState(
         targetValue = if(state.isCardFlipped) 1f else 0f,
         animationSpec = tween(
-            durationMillis = 450,
+            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME-150,
             easing = LinearOutSlowInEasing
         ),
         label = ""
@@ -65,7 +65,7 @@ fun MealCard(
     val rotateImageY = animateFloatAsState(
         targetValue = if(!state.isCardFlipped) 0f else 180f,
         animationSpec = tween(
-            durationMillis = 550,
+            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME,
                     easing = LinearOutSlowInEasing
         ),
         label = ""
@@ -74,7 +74,7 @@ fun MealCard(
     val rotateDescriptionY = animateFloatAsState(
         targetValue = if(!state.isCardFlipped) -180f else 0f,
         animationSpec = tween(
-            durationMillis = 550,
+            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME,
             easing = LinearOutSlowInEasing
         ),
         label = ""
@@ -114,8 +114,9 @@ fun MealCard(
             Box(modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer {
-                    transformOrigin = TransformOrigin(0.5f, 0.5f)
+                    transformOrigin = TransformOrigin.Center
                     rotationY = rotateImageY.value
+                    cameraDistance = 30f
                 }
                 .alpha(alphaImage.value)
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
@@ -140,8 +141,9 @@ fun MealCard(
             Box(modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer {
-                    transformOrigin = TransformOrigin(0.5f, 0.5f)
+                    transformOrigin = TransformOrigin.Center
                     rotationY = rotateDescriptionY.value
+                    cameraDistance = 30f
                 }
                 .alpha(alphaDescription.value)
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
