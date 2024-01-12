@@ -13,7 +13,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,6 +32,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -81,15 +86,16 @@ fun MealCard(
         label = ""
     )
 
-    val cardOffset by animateOffsetAsState(
+    val animatedCardOffset by animateOffsetAsState(
         targetValue = state.cardOffset,
         label = ""
     )
 
     Box(modifier = modifier
         .offset {
-            IntOffset(cardOffset.x.roundToInt(),
-                cardOffset.y.roundToInt()
+            IntOffset(
+                animatedCardOffset.x.roundToInt(),
+                animatedCardOffset.y.roundToInt()
             )
         }
         .fillMaxSize()
@@ -158,10 +164,36 @@ fun MealCard(
                 .background(Color.LightGray)
 
             ) {
-                Text(text = "Description",
+
+                LazyColumn(modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center)
+                    .padding(30.dp),
+                    userScrollEnabled = state.isCardFlipped
+                ){
+                    item{
+                        Text(text = state.meal.strInstructions,
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            color = Color.DarkGray,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                }
+                Text(
+                    text = "Instruction",
                     modifier = Modifier
-                        .align(Alignment.Center)
-                        .padding(30.dp)
+                        .align(Alignment.TopCenter)
+                        .padding(2.dp),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = "Arrow drop down",
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(2.dp)
                 )
             }
         }
