@@ -76,12 +76,14 @@ class MainViewModel @Inject constructor(
     }
 
     fun checkSwipeBounds() {
+        //Swipe right
         if(state.value.cardOffset.x>Constants.OFFSET_LIMIT && !state.value.isLoading){
             resetImageOffset()
             setCardBorderColorState(Color.Transparent)
             getRandomFood()
             Log.e("Swipe", "Right")
         }
+        //Swipe left
         else if(state.value.cardOffset.x<-Constants.OFFSET_LIMIT && !state.value.isLoading){
             resetImageOffset()
             setCardBorderColorState(Color.Transparent)

@@ -1,8 +1,8 @@
 package com.example.foodder.presentation.main_screen.components
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -35,7 +36,7 @@ import com.example.foodder.common.Constants
 import com.example.foodder.presentation.main_screen.MainState
 import kotlin.math.roundToInt
 
-@SuppressLint("UnrememberedMutableInteractionSource")
+
 @Composable
 fun MealCard(
     modifier: Modifier = Modifier,
@@ -80,11 +81,15 @@ fun MealCard(
         label = ""
     )
 
+    val cardOffset by animateOffsetAsState(
+        targetValue = state.cardOffset,
+        label = ""
+    )
+
     Box(modifier = modifier
         .offset {
-            IntOffset(
-                state.cardOffset.x.roundToInt(),
-                state.cardOffset.y.roundToInt()
+            IntOffset(cardOffset.x.roundToInt(),
+                cardOffset.y.roundToInt()
             )
         }
         .fillMaxSize()
@@ -95,7 +100,10 @@ fun MealCard(
         )
         .pointerInput(Unit) {
             detectDragGestures(
-                onDragEnd = onDragEnd,
+                onDragEnd = {
+                    onDragEnd()
+
+                },
                 onDragCancel = onDragEnd,
                 onDrag = { change, dragAmount ->
                     change.consume()
