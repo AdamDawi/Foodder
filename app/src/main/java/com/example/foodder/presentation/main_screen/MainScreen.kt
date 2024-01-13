@@ -14,17 +14,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.foodder.common.Constants
+import com.example.foodder.presentation.main_screen.components.AnimatedCounter
 import com.example.foodder.presentation.main_screen.components.MealCard
 import com.example.foodder.presentation.ui.theme.GreenBlue
 import com.example.foodder.presentation.ui.theme.RedPink
@@ -40,7 +38,7 @@ fun MainScreen(
         Box(modifier = Modifier
             .align(Alignment.TopEnd)
             .padding(top = 30.dp, start = 30.dp, bottom = 30.dp)
-            .height(80.dp)
+            .height(70.dp)
             .width(90.dp)
             .clip(RoundedCornerShape(topStart = 100f, bottomStart = 100f))
             .background(GreenBlue)
@@ -56,17 +54,15 @@ fun MainScreen(
                     modifier = Modifier
                         .size(28.dp)
                 )
-                Text(
-                    text = viewModel.swipedRight.intValue.toString(),
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold
+                AnimatedCounter(
+                    count = viewModel.swipedRight.intValue
                 )
             }
         }
         Box(modifier = Modifier
             .align(Alignment.TopStart)
             .padding(top = 30.dp, end = 30.dp, bottom = 30.dp)
-            .height(80.dp)
+            .height(70.dp)
             .width(90.dp)
             .clip(RoundedCornerShape(topEnd = 100f, bottomEnd = 100f))
             .background(RedPink)
@@ -76,9 +72,8 @@ fun MainScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Text(text = viewModel.swipedLeft.intValue.toString(),
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold
+                AnimatedCounter(
+                    count = viewModel.swipedLeft.intValue
                 )
                 Icon(
                     imageVector = Icons.Default.Delete,
