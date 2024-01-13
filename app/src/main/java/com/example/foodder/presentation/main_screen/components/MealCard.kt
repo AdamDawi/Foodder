@@ -48,7 +48,7 @@ fun MealCard(
     state: MainState,
     onDrag: (Offset) -> Unit,
     onDragEnd: () -> Unit,
-    changeIsCardFrontState: () -> Unit
+    onCardClicked: () -> Unit
 ) {
     val alphaImage = animateFloatAsState(
         targetValue = if(!state.isCardFlipped) 1f else 0f,
@@ -106,10 +106,7 @@ fun MealCard(
         )
         .pointerInput(Unit) {
             detectDragGestures(
-                onDragEnd = {
-                    onDragEnd()
-
-                },
+                onDragEnd = onDragEnd,
                 onDragCancel = onDragEnd,
                 onDrag = { change, dragAmount ->
                     change.consume()
@@ -120,7 +117,7 @@ fun MealCard(
         //clicking without ripple
         .pointerInput(Unit) {
             detectTapGestures {
-                changeIsCardFrontState()
+                onCardClicked()
             }
         }
     ){
@@ -135,22 +132,22 @@ fun MealCard(
                 .alpha(alphaImage.value)
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
             ){
-            AsyncImage(
-                model = state.meal.strMealThumb,
-                contentDescription = "Meal image",
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-            Text(
-                text = state.meal.strMeal,
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(30.dp),
-                color = Color.White,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.ExtraBold
-            )
+                AsyncImage(
+                    model = state.meal.strMealThumb,
+                    contentDescription = "Meal image",
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+                Text(
+                    text = state.meal.strMeal,
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .padding(30.dp),
+                    color = Color.White,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
             }
             Box(modifier = Modifier
                 .fillMaxSize()
@@ -162,7 +159,6 @@ fun MealCard(
                 .alpha(alphaDescription.value)
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
                 .background(Color.LightGray)
-
             ) {
 
                 LazyColumn(modifier = Modifier
@@ -184,7 +180,7 @@ fun MealCard(
                     text = "Instruction",
                     modifier = Modifier
                         .align(Alignment.TopCenter)
-                        .padding(2.dp),
+                        .padding(3.dp),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.ExtraBold
                 )

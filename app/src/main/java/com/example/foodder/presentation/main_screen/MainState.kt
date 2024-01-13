@@ -10,5 +10,6 @@ data class MainState(
     val errorMessage: String = "",
     val cardOffset: Offset = Offset(0f, 0f),
     val cardBorderColor: Color = Color.Transparent,
-    val isCardFlipped: Boolean = false
+    val isCardFlipped: Boolean = false,
+
 )

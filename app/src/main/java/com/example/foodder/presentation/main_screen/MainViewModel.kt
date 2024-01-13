@@ -1,7 +1,7 @@
 package com.example.foodder.presentation.main_screen
 
-import android.util.Log
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -26,6 +26,12 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
     private val _state = mutableStateOf(MainState())
     val state: State<MainState> = _state
+
+    private val _swipedRight = mutableIntStateOf(0)
+    val swipedRight = _swipedRight
+
+    private val _swipedLeft = mutableIntStateOf(0)
+    val swipedLeft = _swipedLeft
 
     private var getRandomFoodJob: Job? = null
 
@@ -78,17 +84,17 @@ class MainViewModel @Inject constructor(
     fun checkSwipeBounds() {
         //Swipe right
         if(state.value.cardOffset.x>Constants.OFFSET_LIMIT && !state.value.isLoading){
+            getRandomFood()
             resetImageOffset()
             setCardBorderColorState(Color.Transparent)
-            getRandomFood()
-            Log.e("Swipe", "Right")
+            _swipedRight.intValue++
         }
         //Swipe left
         else if(state.value.cardOffset.x<-Constants.OFFSET_LIMIT && !state.value.isLoading){
+            getRandomFood()
             resetImageOffset()
             setCardBorderColorState(Color.Transparent)
-            getRandomFood()
-            Log.e("Swipe", "Left")
+            _swipedLeft.intValue++
         }
         else resetImageOffset()
     }
