@@ -11,5 +11,6 @@ data class MainState(
     val cardOffset: Offset = Offset(0f, 0f),
     val cardBorderColor: Color = Color.Transparent,
     val isCardFlipped: Boolean = false,
-
+    val isSwipeToRightShaking: Boolean = false,
+    val isSwipeToLeftShaking: Boolean = false
 )

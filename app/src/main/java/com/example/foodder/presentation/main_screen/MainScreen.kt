@@ -19,11 +19,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.foodder.common.Constants
 import com.example.foodder.presentation.main_screen.components.AnimatedCounter
 import com.example.foodder.presentation.main_screen.components.MealCard
+import com.example.foodder.presentation.main_screen.components.buildShakeAnimation
 import com.example.foodder.presentation.ui.theme.GreenBlue
 import com.example.foodder.presentation.ui.theme.RedPink
 
@@ -32,13 +35,18 @@ import com.example.foodder.presentation.ui.theme.RedPink
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
+    val state = viewModel.state.value
+
+    val shakeRightAnimation = buildShakeAnimation(isShaking = state.isSwipeToRightShaking)
+    val shakeLeftAnimation = buildShakeAnimation(isShaking = state.isSwipeToLeftShaking)
+
     Box(modifier = Modifier
         .fillMaxSize()
     ){
         Box(modifier = Modifier
             .align(Alignment.TopEnd)
             .padding(top = 30.dp, start = 30.dp, bottom = 30.dp)
-            .height(70.dp)
+            .height(60.dp)
             .width(90.dp)
             .clip(RoundedCornerShape(topStart = 100f, bottomStart = 100f))
             .background(GreenBlue)
@@ -53,6 +61,7 @@ fun MainScreen(
                     contentDescription = "Like",
                     modifier = Modifier
                         .size(28.dp)
+                        .shake(shakeRightAnimation)
                 )
                 AnimatedCounter(
                     count = viewModel.swipedRight.intValue
@@ -62,7 +71,7 @@ fun MainScreen(
         Box(modifier = Modifier
             .align(Alignment.TopStart)
             .padding(top = 30.dp, end = 30.dp, bottom = 30.dp)
-            .height(70.dp)
+            .height(60.dp)
             .width(90.dp)
             .clip(RoundedCornerShape(topEnd = 100f, bottomEnd = 100f))
             .background(RedPink)
@@ -77,12 +86,12 @@ fun MainScreen(
                 )
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Not like",
+                    contentDescription = "Delete",
                     modifier = Modifier
                         .size(28.dp)
+                        .shake(shakeLeftAnimation)
                 )
             }
-
         }
         Box(modifier = Modifier
             .fillMaxSize()
@@ -104,5 +113,16 @@ fun MainScreen(
         )
     }
 }
+
+@Composable
+fun Modifier.shake(translationX: Float): Modifier {
+    return this.then(
+        Modifier.graphicsLayer(
+            translationX = (LocalDensity.current).run{ translationX }
+        )
+    )
+}
+
+
 
 

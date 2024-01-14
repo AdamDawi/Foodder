@@ -1,9 +1,5 @@
 package com.example.foodder.presentation.main_screen.components
 
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.animateOffsetAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,7 +16,6 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -50,46 +45,11 @@ fun MealCard(
     onDragEnd: () -> Unit,
     onCardClicked: () -> Unit
 ) {
-    val alphaImage = animateFloatAsState(
-        targetValue = if(!state.isCardFlipped) 1f else 0f,
-        animationSpec = tween(
-            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME-150,
-            easing = LinearOutSlowInEasing
-        ),
-        label = ""
-    )
-
-    val alphaDescription = animateFloatAsState(
-        targetValue = if(state.isCardFlipped) 1f else 0f,
-        animationSpec = tween(
-            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME-150,
-            easing = LinearOutSlowInEasing
-        ),
-        label = ""
-    )
-
-    val rotateImageY = animateFloatAsState(
-        targetValue = if(!state.isCardFlipped) 0f else 180f,
-        animationSpec = tween(
-            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME,
-                    easing = LinearOutSlowInEasing
-        ),
-        label = ""
-    )
-
-    val rotateDescriptionY = animateFloatAsState(
-        targetValue = if(!state.isCardFlipped) -180f else 0f,
-        animationSpec = tween(
-            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME,
-            easing = LinearOutSlowInEasing
-        ),
-        label = ""
-    )
-
-    val animatedCardOffset by animateOffsetAsState(
-        targetValue = state.cardOffset,
-        label = ""
-    )
+    val alphaImage = buildAlphaAnimation(targetValue = if(!state.isCardFlipped) 1f else 0f)
+    val alphaDescription = buildAlphaAnimation(targetValue = if(state.isCardFlipped) 1f else 0f)
+    val rotateImageY = buildRotationAnimation(targetValue = if(!state.isCardFlipped) 0f else 180f)
+    val rotateDescriptionY = buildRotationAnimation(targetValue = if(!state.isCardFlipped) -180f else 0f)
+    val animatedCardOffset = buildOffsetAnimation(targetValue = state.cardOffset)
 
     Box(modifier = modifier
         .offset {
@@ -126,10 +86,10 @@ fun MealCard(
                 .fillMaxSize()
                 .graphicsLayer {
                     transformOrigin = TransformOrigin.Center
-                    rotationY = rotateImageY.value
+                    rotationY = rotateImageY
                     cameraDistance = 30f
                 }
-                .alpha(alphaImage.value)
+                .alpha(alphaImage)
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
             ){
                 AsyncImage(
@@ -153,10 +113,10 @@ fun MealCard(
                 .fillMaxSize()
                 .graphicsLayer {
                     transformOrigin = TransformOrigin.Center
-                    rotationY = rotateDescriptionY.value
+                    rotationY = rotateDescriptionY
                     cameraDistance = 30f
                 }
-                .alpha(alphaDescription.value)
+                .alpha(alphaDescription)
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
                 .background(Color.LightGray)
             ) {

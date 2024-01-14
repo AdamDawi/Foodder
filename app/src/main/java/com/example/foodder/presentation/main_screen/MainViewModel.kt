@@ -64,9 +64,18 @@ class MainViewModel @Inject constructor(
                 _state.value.cardOffset.y+dragAmount.y
             )
         )
-        if(state.value.cardOffset.x>Constants.OFFSET_LIMIT) setCardBorderColorState(GreenBlue)
-        else if(state.value.cardOffset.x<-Constants.OFFSET_LIMIT) setCardBorderColorState(RedPink)
-        else setCardBorderColorState(Color.Transparent)
+        if(state.value.cardOffset.x>Constants.OFFSET_LIMIT){
+            setCardBorderColorState(GreenBlue)
+            _state.value = _state.value.copy(isSwipeToRightShaking = true)
+        }
+        else if(state.value.cardOffset.x<-Constants.OFFSET_LIMIT){
+            setCardBorderColorState(RedPink)
+            _state.value = _state.value.copy(isSwipeToLeftShaking = true)
+        }
+        else {
+            setCardBorderColorState(Color.Transparent)
+            _state.value = _state.value.copy(isSwipeToRightShaking = false, isSwipeToLeftShaking = false)
+        }
     }
 
     fun changeIsCardFlippedState(){

@@ -43,8 +43,8 @@ fun AnimatedCounter(
             AnimatedContent(
                 targetState = char,
                 transitionSpec = {
-                    slideInVertically { it } togetherWith slideOutVertically { -it }
-                                 },
+                    slideInVertically { it*2 } togetherWith slideOutVertically { -it*2 }
+                    },
                 label = ""
             ) {
                 Text(
