@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.foodder.common.Constants
 import com.example.foodder.presentation.main_screen.MainState
+import com.example.foodder.presentation.ui.theme.LocalSpacing
 import kotlin.math.roundToInt
 
 
@@ -103,7 +104,7 @@ fun MealCard(
                     text = state.meal.strMeal,
                     modifier = Modifier
                         .align(Alignment.BottomStart)
-                        .padding(30.dp),
+                        .padding(LocalSpacing.current.large),
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.ExtraBold
@@ -120,11 +121,10 @@ fun MealCard(
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
                 .background(Color.LightGray)
             ) {
-
                 LazyColumn(modifier = Modifier
                     .fillMaxSize()
                     .align(Alignment.Center)
-                    .padding(30.dp),
+                    .padding(LocalSpacing.current.large),
                     userScrollEnabled = state.isCardFlipped
                 ){
                     item{
@@ -140,16 +140,16 @@ fun MealCard(
                     text = "Instruction",
                     modifier = Modifier
                         .align(Alignment.TopCenter)
-                        .padding(3.dp),
+                        .padding(LocalSpacing.current.small),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.ExtraBold
                 )
                 Icon(
                     imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = "Arrow drop down",
+                    contentDescription = "Arrow down",
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(2.dp)
+                        .padding(LocalSpacing.current.small)
                 )
             }
         }
