@@ -59,8 +59,22 @@ data class MealDto(
 )
 
 fun MealDto.toMeal(): Meal {
-    return Meal(strCategory = strCategory,
+    val ingredients = mutableListOf<String>()
+
+    //filtering ingredients to use to display
+    for (i in 1..20) {
+        val ingredient = "strIngredient$i"
+        val value = this::class.members.find { it.name == ingredient }?.call(this)?.toString()
+        if (!value.isNullOrEmpty()) {
+            ingredients.add(value)
+        }
+    }
+    return Meal(
+        strCategory = strCategory,
+            strArea = strArea,
             strInstructions = strInstructions,
             strMeal = strMeal,
-            strMealThumb = strMealThumb)
+            strMealThumb = strMealThumb,
+            strIngredients = ingredients
+    )
 }

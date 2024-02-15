@@ -81,6 +81,8 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     //anchored
     implementation("androidx.compose.foundation:foundation:1.6.0-beta03")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.0")
 }
 
 kapt {

@@ -6,14 +6,17 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +30,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,9 +38,12 @@ import coil.compose.AsyncImage
 import com.example.foodder.common.Constants
 import com.example.foodder.presentation.main_screen.MainState
 import com.example.foodder.presentation.ui.theme.LocalSpacing
+import com.example.foodder.presentation.ui.theme.OrangePumpkin
+import com.example.foodder.presentation.ui.theme.YellowMaize
 import kotlin.math.roundToInt
 
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MealCard(
     modifier: Modifier = Modifier,
@@ -124,33 +130,50 @@ fun MealCard(
                 LazyColumn(modifier = Modifier
                     .fillMaxSize()
                     .align(Alignment.Center)
-                    .padding(LocalSpacing.current.large),
+                    .padding(12.dp),
                     userScrollEnabled = state.isCardFlipped
                 ){
                     item{
-                        Text(text = state.meal.strInstructions,
+                        Text(
+                            text = "Information",
                             modifier = Modifier
-                                .fillMaxSize(),
-                            color = Color.DarkGray,
-                            overflow = TextOverflow.Ellipsis
+                                .fillMaxWidth()
+                                .padding(LocalSpacing.current.small),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            textAlign = TextAlign.Center
                         )
+                        Row(modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(LocalSpacing.current.small)
+                        ) {
+                            TextColorBox(color = YellowMaize, text = state.meal.strArea)
+                            Spacer(modifier = Modifier.width(5.dp))
+                            TextColorBox(color = YellowMaize, text = state.meal.strCategory)
+                        }
+                        Text(
+                            text = "Ingredients",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(LocalSpacing.current.small),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            textAlign = TextAlign.Center
+                        )
+                        FlowRow(modifier = Modifier
+                            .fillMaxSize()
+                        ) {
+                            for(ingredient in state.meal.strIngredients){
+                                TextColorBox(
+                                    modifier = Modifier.padding(top = 5.dp, start = 5.dp),
+                                    color = OrangePumpkin,
+                                    text = ingredient
+                                )
+                            }
+                        }
+
                     }
                 }
-                Text(
-                    text = "Instruction",
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(LocalSpacing.current.small),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.ExtraBold
-                )
-                Icon(
-                    imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = "Arrow down",
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(LocalSpacing.current.small)
-                )
             }
         }
         else if(state.errorMessage.isNotEmpty()){
