@@ -17,7 +17,7 @@ fun Navigation() {
             MainScreen(navController = navController)
         }
         composable(route = Screen.FavouriteFoodScreen.route){
-            FavouriteFoodScreen()
+            FavouriteFoodScreen(navController)
         }
 
     }

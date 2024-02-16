@@ -55,7 +55,7 @@ fun MainScreen(
                 containerColor = Blueblue
             ) {
                 Icon(imageVector = Icons.Default.List,
-                    contentDescription = "Look favourite food",
+                    contentDescription = "List of favourite food",
                     modifier = Modifier
                         .padding(5.dp)
                         .size(45.dp)
