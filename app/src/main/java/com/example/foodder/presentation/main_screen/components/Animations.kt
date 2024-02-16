@@ -10,7 +10,10 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
 import com.example.foodder.common.Constants
 
 @Composable
@@ -52,3 +55,12 @@ fun buildShakeAnimation(isShaking: Boolean) =
             repeatMode = RepeatMode.Reverse
         ), label = ""
     ).value
+
+@Composable
+fun Modifier.shake(translationX: Float): Modifier {
+    return this.then(
+        Modifier.graphicsLayer(
+            translationX = (LocalDensity.current).run{ translationX }
+        )
+    )
+}

@@ -13,14 +13,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -28,9 +29,12 @@ import com.example.foodder.common.Constants
 import com.example.foodder.presentation.main_screen.components.AnimatedCounter
 import com.example.foodder.presentation.main_screen.components.MealCard
 import com.example.foodder.presentation.main_screen.components.buildShakeAnimation
+import com.example.foodder.presentation.main_screen.components.shake
+import com.example.foodder.presentation.ui.theme.BackgroundColor
+import com.example.foodder.presentation.ui.theme.Blueblue
 import com.example.foodder.presentation.ui.theme.GreenBlue
 import com.example.foodder.presentation.ui.theme.RedPink
-
+import com.example.foodder.presentation.util.Screen
 
 @Composable
 fun MainScreen(
@@ -41,9 +45,28 @@ fun MainScreen(
 
     val shakeRightAnimation = buildShakeAnimation(isShaking = state.isSwipeToRightShaking)
     val shakeLeftAnimation = buildShakeAnimation(isShaking = state.isSwipeToLeftShaking)
+    Scaffold(modifier = Modifier
+        .fillMaxSize(),
+        containerColor = BackgroundColor,
+        floatingActionButton =
+        {
+            FloatingActionButton(onClick = {
+                navController.navigate(Screen.FavouriteFoodScreen.route) },
+                containerColor = Blueblue
+            ) {
+                Icon(imageVector = Icons.Default.List,
+                    contentDescription = "Look favourite food",
+                    modifier = Modifier
+                        .padding(5.dp)
+                        .size(45.dp)
+                )
+            }
+        }
+    ) {
 
     Box(modifier = Modifier
         .fillMaxSize()
+        .padding(it)
     ){
         Box(modifier = Modifier
             .align(Alignment.TopEnd)
@@ -95,6 +118,7 @@ fun MainScreen(
                 )
             }
         }
+
         Box(modifier = Modifier
             .fillMaxSize()
             .padding(top = 150.dp, bottom = 150.dp, start = 50.dp, end = 50.dp)
@@ -114,17 +138,5 @@ fun MainScreen(
             }
         )
     }
+    }
 }
-
-@Composable
-fun Modifier.shake(translationX: Float): Modifier {
-    return this.then(
-        Modifier.graphicsLayer(
-            translationX = (LocalDensity.current).run{ translationX }
-        )
-    )
-}
-
-
-
-
