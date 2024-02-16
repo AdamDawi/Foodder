@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.foodder.common.Constants
 import com.example.foodder.presentation.main_screen.components.AnimatedCounter
 import com.example.foodder.presentation.main_screen.components.MealCard
@@ -33,7 +34,8 @@ import com.example.foodder.presentation.ui.theme.RedPink
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val state = viewModel.state.value
 

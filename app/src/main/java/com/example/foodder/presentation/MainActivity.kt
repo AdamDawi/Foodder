@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.foodder.presentation.main_screen.MainScreen
 import com.example.foodder.presentation.ui.theme.FoodderTheme
 import com.example.foodder.presentation.ui.theme.BackgroundColor
+import com.example.foodder.presentation.util.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = BackgroundColor
                 ) {
-                    MainScreen()
+                    Navigation()
                 }
             }
         }
