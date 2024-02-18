@@ -113,7 +113,8 @@ fun MealCard(
                         .padding(LocalSpacing.current.large),
                     color = Color.White,
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.ExtraBold
+                    fontWeight = FontWeight.ExtraBold,
+                    maxLines = 2
                 )
             }
             Box(modifier = Modifier

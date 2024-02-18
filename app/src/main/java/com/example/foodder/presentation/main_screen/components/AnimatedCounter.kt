@@ -51,7 +51,8 @@ fun AnimatedCounter(
                     text = it.toString(),
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
-                    softWrap = false
+                    softWrap = false,
+                    maxLines = 1
                 )
             }
         }

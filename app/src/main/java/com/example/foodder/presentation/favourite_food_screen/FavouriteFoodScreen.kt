@@ -11,16 +11,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Scaffold
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.foodder.R
 import com.example.foodder.presentation.favourite_food_screen.components.FoodCard
 import com.example.foodder.presentation.favourite_food_screen.components.TopAppBarView
 
 @Composable
 fun FavouriteFoodScreen(
+    viewModel: FavouriteFoodViewModel = hiltViewModel(),
     navController: NavController
 ) {
+    val state = viewModel.state.value
     Scaffold(
         topBar = {
             TopAppBarView { navController.navigateUp() }
@@ -32,13 +34,11 @@ fun FavouriteFoodScreen(
             .padding(it),
             contentPadding = PaddingValues(10.dp)
         ){
-            item{
-                FoodCard(foodName = "Pizza", photoId = R.drawable.food)
-            }
-            item{
-                FoodCard(modifier = Modifier.padding(top = 10.dp),
-                    foodName = "Pizza",
-                    photoId = R.drawable.food
+            items(state.meals.size){ id ->
+                FoodCard(
+                    modifier = Modifier.padding(bottom = 10.dp),
+                    foodName = state.meals[id].strMeal,
+                    photo = state.meals[id].strMealThumb
                 )
             }
         }

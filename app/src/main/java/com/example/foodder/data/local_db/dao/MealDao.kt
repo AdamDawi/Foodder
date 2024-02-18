@@ -1,4 +1,4 @@
-package com.example.foodder.data.local.dao
+package com.example.foodder.data.local_db.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class MealDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun addMeal(mealEntity: MealEntity)
 
     @Query("select * from `food_table`")

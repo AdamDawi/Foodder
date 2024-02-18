@@ -10,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.foodder.common.Constants
 import com.example.foodder.common.Resource
 import com.example.foodder.domain.model.Meal
+import com.example.foodder.domain.model.toMealEntity
+import com.example.foodder.domain.use_case.AddMealUseCase
 import com.example.foodder.domain.use_case.GetRandomFoodUseCase
 import com.example.foodder.presentation.ui.theme.GreenBlue
 import com.example.foodder.presentation.ui.theme.RedPink
@@ -17,11 +19,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getRandomFoodUseCase: GetRandomFoodUseCase
+    private val getRandomFoodUseCase: GetRandomFoodUseCase,
+    private val addMealUseCase: AddMealUseCase
 ): ViewModel() {
     private val _state = mutableStateOf(MainState())
     val state: State<MainState> = _state
@@ -92,6 +96,10 @@ class MainViewModel @Inject constructor(
     fun checkSwipeBounds() {
         //Swipe right
         if(state.value.cardOffset.x>Constants.OFFSET_LIMIT && !state.value.isLoading){
+            viewModelScope.launch {
+                println(state.value.meal)
+                addMealUseCase(state.value.meal.toMealEntity())
+            }
             getRandomFood()
             resetImageOffset()
             setCardBorderColorState(Color.Transparent)

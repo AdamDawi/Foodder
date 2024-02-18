@@ -1,6 +1,6 @@
 package com.example.foodder.data.repository
 
-import com.example.foodder.data.local.dao.MealDao
+import com.example.foodder.data.local_db.dao.MealDao
 import com.example.foodder.domain.model.MealEntity
 import com.example.foodder.domain.repository.FoodDbRepository
 import kotlinx.coroutines.flow.Flow

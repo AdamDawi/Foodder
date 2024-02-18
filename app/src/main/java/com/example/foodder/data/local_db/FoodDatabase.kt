@@ -1,7 +1,9 @@
-package com.example.foodder.data.local.dao
+package com.example.foodder.data.local_db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.foodder.data.local_db.dao.MealDao
 import com.example.foodder.domain.model.MealEntity
 
 @Database(
@@ -9,6 +11,7 @@ import com.example.foodder.domain.model.MealEntity
     version = 1,
     exportSchema = false
 )
+@TypeConverters(ListStringConverter::class)
 abstract class FoodDatabase: RoomDatabase(){
-    abstract fun mealDao(): MealDao
+    abstract val mealDao: MealDao
 }

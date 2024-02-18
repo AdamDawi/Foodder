@@ -8,3 +8,14 @@ data class Meal(
     val strMealThumb: String = "",
     val strIngredients: MutableList<String> = mutableListOf()
 )
+
+fun Meal.toMealEntity(): MealEntity {
+    return MealEntity(
+        strArea = strArea,
+        strCategory = strCategory,
+        strInstructions = strInstructions,
+        strMeal = strMeal,
+        strMealThumb = strMealThumb
+    )
+}
+
