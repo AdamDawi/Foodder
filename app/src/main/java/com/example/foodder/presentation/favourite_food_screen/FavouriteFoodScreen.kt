@@ -1,6 +1,7 @@
 package com.example.foodder.presentation.favourite_food_screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.foodder.presentation.favourite_food_screen.components.FoodCard
 import com.example.foodder.presentation.favourite_food_screen.components.TopAppBarView
+import com.example.foodder.presentation.util.Screen
 
 @Composable
 fun FavouriteFoodScreen(
@@ -36,7 +38,11 @@ fun FavouriteFoodScreen(
         ){
             items(state.meals.size){ id ->
                 FoodCard(
-                    modifier = Modifier.padding(bottom = 10.dp),
+                    modifier = Modifier
+                        .padding(bottom = 10.dp)
+                        .clickable {
+                            navController.navigate(Screen.FoodDetailScreen.route+"/$id")
+                        },
                     foodName = state.meals[id].strMeal,
                     photo = state.meals[id].strMealThumb
                 )
