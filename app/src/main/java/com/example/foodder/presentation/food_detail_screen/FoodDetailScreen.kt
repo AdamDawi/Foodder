@@ -12,12 +12,13 @@ import androidx.wear.compose.material.Text
 @Composable
 fun FoodDetailScreen(
     id: Int,
-    navController: NavController
+    navController: NavController,
 ) {
     Box(modifier = Modifier.fillMaxSize())
     {
         Text(text = id.toString(),
             modifier = Modifier.align(Alignment.Center),
             color = Color.Black)
+        //TODO display meal information
     }
 }
