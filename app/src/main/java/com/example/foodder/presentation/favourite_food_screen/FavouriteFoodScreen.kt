@@ -32,7 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.foodder.presentation.favourite_food_screen.components.FoodCard
-import com.example.foodder.presentation.favourite_food_screen.components.TopAppBarView
+import com.example.foodder.common.TopAppBarView
 import com.example.foodder.presentation.favourite_food_screen.components.SwipeToDismissBg
 import com.example.foodder.presentation.util.Screen
 import kotlinx.coroutines.delay
@@ -52,7 +52,10 @@ fun FavouriteFoodScreen(
             SnackbarHost(hostState = snackBarHostState)
         },
         topBar = {
-            TopAppBarView { navController.navigateUp() }
+            TopAppBarView(
+                onBack = { navController.navigateUp() },
+                title = "Favourite food"
+            )
         }
     ) {
         LazyColumn(modifier = Modifier
@@ -106,7 +109,6 @@ fun FavouriteFoodScreen(
                         }
                         delay(1000)
                         viewModel.deleteMeal(currentItem)
-
                     }
                 }
             }
