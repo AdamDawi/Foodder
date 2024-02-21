@@ -23,7 +23,9 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun TopAppBarView(
     onBack: () -> Unit,
-    title: String
+    title: String,
+    containerColor: Color = Color.White,
+    themeColor: Color = Color.Black
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -36,7 +38,6 @@ fun TopAppBarView(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)
             )
-
         },
         navigationIcon = {
             Box(modifier = Modifier
@@ -46,16 +47,15 @@ fun TopAppBarView(
                     Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Arrow back",
                         modifier = Modifier
-                            .size(30.dp),
-                        tint = Color.Black
+                            .size(30.dp)
                     )
                 }
             }
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color.White,
-            titleContentColor = Color.Black,
-            navigationIconContentColor = Color.Black
+            containerColor = containerColor,
+            titleContentColor = themeColor,
+            navigationIconContentColor = themeColor
             )
     )
 }

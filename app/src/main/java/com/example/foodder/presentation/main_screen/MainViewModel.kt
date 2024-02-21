@@ -97,7 +97,6 @@ class MainViewModel @Inject constructor(
         //Swipe right
         if(state.value.cardOffset.x>Constants.OFFSET_LIMIT && !state.value.isLoading){
             viewModelScope.launch {
-                println(state.value.meal)
                 addMealUseCase(state.value.meal.toMealEntity())
             }
             getRandomFood()

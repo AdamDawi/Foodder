@@ -4,7 +4,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.foodder.domain.model.MealEntity
 import com.example.foodder.domain.use_case.GetMealByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -15,12 +14,15 @@ import javax.inject.Inject
 class FoodDetailViewModel @Inject constructor(
     private val getMealByIdUseCase: GetMealByIdUseCase
 ): ViewModel(){
-    private val _state = mutableStateOf(MealEntity())
-    val state: State<MealEntity> = _state
+    private val _state = mutableStateOf(FoodDetailState())
+    val state: State<FoodDetailState> = _state
 
     fun getMealById(id: Int) {
         getMealByIdUseCase(id).onEach {
-            _state.value = it
+            _state.value.meal = it
         }.launchIn(viewModelScope)
+    }
+    fun changeIsSelected(id: Int){
+        _state.value = _state.value.copy(isSelected = id)
     }
 }

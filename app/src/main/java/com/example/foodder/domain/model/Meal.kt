@@ -15,7 +15,8 @@ fun Meal.toMealEntity(): MealEntity {
         strCategory = strCategory,
         strInstructions = strInstructions,
         strMeal = strMeal,
-        strMealThumb = strMealThumb
+        strMealThumb = strMealThumb,
+        strIngredients = strIngredients
     )
 }
 
