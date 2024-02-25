@@ -22,7 +22,7 @@ class FoodDetailViewModel @Inject constructor(
             _state.value.meal = it
         }.launchIn(viewModelScope)
     }
-    fun changeIsSelected(id: Int){
-        _state.value = _state.value.copy(isSelected = id)
+    fun changeIsExpanded(b: Boolean){
+        _state.value = _state.value.copy(isExpanded = b)
     }
 }

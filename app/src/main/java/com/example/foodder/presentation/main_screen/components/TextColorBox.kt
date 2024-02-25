@@ -11,8 +11,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.foodder.presentation.ui.theme.OrangePumpkin
+import com.example.foodder.presentation.ui.theme.YellowMaize
 
 @Composable
 fun TextColorBox(
@@ -34,4 +37,16 @@ fun TextColorBox(
             maxLines = 1
         )
     }
+}
+
+@Preview
+@Composable
+fun TextColorBoxPreviewOrange() {
+    TextColorBox(color = OrangePumpkin, text = "Pierogies")
+}
+
+@Preview
+@Composable
+fun TextColorBoxPreviewYellow() {
+    TextColorBox(color = YellowMaize, text = "Pierogies")
 }
