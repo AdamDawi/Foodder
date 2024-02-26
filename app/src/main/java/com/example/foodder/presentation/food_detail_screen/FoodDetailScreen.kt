@@ -1,18 +1,13 @@
 package com.example.foodder.presentation.food_detail_screen
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
@@ -41,7 +35,6 @@ import com.example.foodder.presentation.ui.theme.OrangePumpkin
 import kotlin.math.max
 import kotlin.math.min
 
-private val TitleHeight = 128.dp
 private val MinTitleOffset = 12.dp
 private val MinImageOffset = 12.dp
 private val MaxTitleOffset = 310.dp
@@ -62,10 +55,6 @@ fun FoodDetailScreen(
     val collapseFractionProvider = {
         (scroll.value / collapseRange).coerceIn(0f, 1f)
     }
-    val maxOffset = with(LocalDensity.current) { MaxTitleOffset.toPx() }
-    val minOffset = with(LocalDensity.current) { MinTitleOffset.toPx() }
-
-
     Scaffold(
         topBar = { TopAppBarView(onBack = {navController.navigateUp()},
             title = "",
@@ -79,7 +68,6 @@ fun FoodDetailScreen(
                 .padding(it)
                 .padding(start = 10.dp, end = 10.dp),
         ) {
-                Box(modifier = Modifier){
                     CollapsingImageLayout(
                         collapseFractionProvider = collapseFractionProvider
                     ) {
@@ -90,52 +78,31 @@ fun FoodDetailScreen(
                                 .size(ExpandedImageSize),
                             contentScale = ContentScale.Crop
                         )
+                        Text(text = state.meal.strMeal,
+                            color = Color.Black,
+                            modifier = Modifier
+                                .widthIn(max = screenWidth / 2),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 24.sp,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis
+                        )
                     }
-                    Text(text = state.meal.strMeal,
-                        color = Color.Black,
-                        modifier = Modifier
-                            .widthIn(max = screenWidth / 2)
-                            .height(TitleHeight)
-                            .offset {
-                                val offset = (maxOffset - scroll.value).coerceAtLeast(minOffset)
-                                if (offset == minOffset) viewModel.changeIsExpanded(false)
-                                else viewModel.changeIsExpanded(true)
-                                IntOffset(x = 0, y = offset.toInt())
-                            },
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp,
-                        maxLines = 3,
-                        overflow = TextOverflow.Ellipsis
-                    )
-
+//                    if(collapseFractionProvider()==1f){
+//                        Divider(
+//                            Modifier
+//                            .requiredWidth(1000.dp)
+//                        )
+//                    }
                     Column(modifier = Modifier
-                        .offset {
-                            val offset = (maxOffset-50f + TitleHeight.toPx() - scroll.value)
-                                .coerceAtLeast(CollapsedImageSize.roundToPx().toFloat()+50f)
-                            IntOffset(x = 0, y = offset.toInt())
-                        }
                         .verticalScroll(scroll)
-                        .padding(top = 10.dp)
-                    ){
-                        if(!state.isExpanded){
-                            Divider(Modifier.requiredWidth(1000.dp))
-                        }
-                        Column(modifier = Modifier
-                            .verticalScroll(scroll)
-                            .padding(top = 10.dp)
-                        ) {
-                            Text(
-                                text = state.meal.strInstructions,
-                                color = Color.Black,
-                                fontSize = 20.sp
-                            )
-                        }
+                    ) {
                         Text(
-                                text = state.meal.strInstructions,
-                                color = Color.Black,
-                                fontSize = 20.sp)
+                            text = state.meal.strInstructions,
+                            color = Color.Black,
+                            fontSize = 22.sp
+                        )
                     }
-                }
             }
         }
     }
@@ -149,28 +116,66 @@ private fun CollapsingImageLayout(
     Layout(
         modifier = modifier,
         content = content
-    ) { image, constraints ->
+    ) { (image, title), constraints ->
         val collapseFraction = collapseFractionProvider()
 
+        //measurements
         val imageMaxSize = min(ExpandedImageSize.roundToPx(), constraints.maxWidth)
         val imageMinSize = max(CollapsedImageSize.roundToPx(), constraints.minWidth)
         val imageWidth = lerp(imageMaxSize, imageMinSize, collapseFraction)
-        val imagePlaceable = image[0].measure(Constraints.fixed(imageWidth, imageWidth))
+        val imagePlaceable = image.measure(Constraints.fixed(imageWidth, imageWidth))
 
+        val titlePlaceable = title.measure(constraints)
+
+        //placement
         val imageY = lerp(MinTitleOffset, MinImageOffset, collapseFraction).roundToPx()
         val imageX = lerp(
             (constraints.maxWidth - imageWidth) / 2, // centered when expanded
             constraints.maxWidth - imageWidth, // right aligned when collapsed
             collapseFraction
         )
+        val titleY = lerp(ExpandedImageSize.roundToPx(), 20, collapseFraction)
         layout(
             width = constraints.maxWidth,
-            height = imageY + imageWidth
+            height = max(imageY + imageWidth, titleY+titlePlaceable.height) +20 //+20 is padding
         ) {
             imagePlaceable.placeRelative(imageX, imageY)
+            titlePlaceable.place(0, titleY)
         }
     }
 }
+
+//@Composable
+//private fun CollapsingImageLayout(
+//    collapseFractionProvider: () -> Float,
+//    modifier: Modifier = Modifier,
+//    content: @Composable () -> Unit
+//) {
+//    Layout(
+//        modifier = modifier,
+//        content = content
+//    ) { image, constraints ->
+//        val collapseFraction = collapseFractionProvider()
+//
+//        val imageMaxSize = min(ExpandedImageSize.roundToPx(), constraints.maxWidth)
+//        val imageMinSize = max(CollapsedImageSize.roundToPx(), constraints.minWidth)
+//        val imageWidth = lerp(imageMaxSize, imageMinSize, collapseFraction)
+//        val imagePlaceable = image[0].measure(Constraints.fixed(imageWidth, imageWidth))
+//
+//        val imageY = lerp(MinTitleOffset, MinImageOffset, collapseFraction).roundToPx()
+//        val imageX = lerp(
+//            (constraints.maxWidth - imageWidth) / 2, // centered when expanded
+//            constraints.maxWidth - imageWidth, // right aligned when collapsed
+//            collapseFraction
+//        )
+//        layout(
+//            width = constraints.maxWidth,
+//            height = imageY + imageWidth
+//        ) {
+//            imagePlaceable.placeRelative(imageX, imageY)
+//        }
+//    }
+//}
 @Preview
 @Composable
 fun FoodDetailScreenPreview() {
