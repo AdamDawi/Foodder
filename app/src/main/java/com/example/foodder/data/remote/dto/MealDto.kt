@@ -60,6 +60,7 @@ data class MealDto(
 
 fun MealDto.toMeal(): Meal {
     val ingredients = mutableListOf<String>()
+    val measurements = mutableListOf<String>()
 
     //filtering ingredients to use to display
     for (i in 1..20) {
@@ -69,12 +70,21 @@ fun MealDto.toMeal(): Meal {
             ingredients.add(value)
         }
     }
+    //filtering measurements to use to display
+    for (i in 1..20) {
+        val measure = "strMeasure$i"
+        val value = this::class.members.find { it.name == measure }?.call(this)?.toString()
+        if (!value.isNullOrEmpty()) {
+            measurements.add(value)
+        }
+    }
     return Meal(
         strCategory = strCategory,
             strArea = strArea,
             strInstructions = strInstructions,
             strMeal = strMeal,
             strMealThumb = strMealThumb,
-            strIngredients = ingredients
+            strIngredients = ingredients,
+            strMeasurements = measurements
     )
 }

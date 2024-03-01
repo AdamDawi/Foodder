@@ -1,13 +1,20 @@
 package com.example.foodder.presentation.food_detail_screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,6 +25,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
@@ -31,7 +39,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.wear.compose.material.Text
 import coil.compose.AsyncImage
 import com.example.foodder.common.TopAppBarView
+import com.example.foodder.presentation.main_screen.components.TextColorBox
+import com.example.foodder.presentation.ui.theme.LocalSpacing
 import com.example.foodder.presentation.ui.theme.OrangePumpkin
+import com.example.foodder.presentation.ui.theme.YellowMaize
 import kotlin.math.max
 import kotlin.math.min
 
@@ -41,6 +52,7 @@ private val MaxTitleOffset = 310.dp
 private val ExpandedImageSize = 300.dp
 private val CollapsedImageSize = 150.dp
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FoodDetailScreen(
     id: Int,
@@ -57,7 +69,7 @@ fun FoodDetailScreen(
     }
     Scaffold(
         topBar = { TopAppBarView(onBack = {navController.navigateUp()},
-            title = "",
+            title = "Details",
             containerColor = OrangePumpkin,
             themeColor = Color.White)
         },
@@ -68,11 +80,11 @@ fun FoodDetailScreen(
                 .padding(it)
                 .padding(start = 10.dp, end = 10.dp),
         ) {
-                    CollapsingImageLayout(
+                    CollapsingImageAndTitleLayout(
                         collapseFractionProvider = collapseFractionProvider
                     ) {
                         AsyncImage(model = state.meal.strMealThumb,
-                            contentDescription = "Meal",
+                            contentDescription = state.meal.strMeal,
                             modifier = Modifier
                                 .clip(CircleShape)
                                 .size(ExpandedImageSize),
@@ -84,19 +96,84 @@ fun FoodDetailScreen(
                                 .widthIn(max = screenWidth / 2),
                             fontWeight = FontWeight.Bold,
                             fontSize = 24.sp,
-                            maxLines = 3,
+                            maxLines = 2,
                             overflow = TextOverflow.Ellipsis
                         )
                     }
-//                    if(collapseFractionProvider()==1f){
-//                        Divider(
-//                            Modifier
-//                            .requiredWidth(1000.dp)
-//                        )
-//                    }
+                    Divider(Modifier.fillMaxWidth())
                     Column(modifier = Modifier
                         .verticalScroll(scroll)
                     ) {
+
+                        Text(
+                            text = "Information",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(LocalSpacing.current.small),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            textAlign = TextAlign.Center,
+                            color = Color.Black
+                        )
+                        Row(modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(LocalSpacing.current.small)
+                        ) {
+                            TextColorBox(color = YellowMaize, text = state.meal.strArea)
+                            Spacer(modifier = Modifier.width(5.dp))
+                            TextColorBox(color = YellowMaize, text = state.meal.strCategory)
+                        }
+                        Text(
+                            text = "Ingredients",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(LocalSpacing.current.small),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            textAlign = TextAlign.Center,
+                            color = Color.Black
+                        )
+                        FlowRow(modifier = Modifier
+                            .fillMaxSize()
+                        ) {
+                            for(ingredient in state.meal.strIngredients){
+                                TextColorBox(
+                                    modifier = Modifier.padding(top = 5.dp, start = 5.dp),
+                                    color = OrangePumpkin,
+                                    text = ingredient
+                                )
+                            }
+                        }
+                        Text(
+                            text = "Measurements",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(LocalSpacing.current.small),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            textAlign = TextAlign.Center,
+                            color = Color.Black
+                        )
+                        FlowRow(modifier = Modifier
+                            .fillMaxSize()
+                        ) {
+                            for(measure in state.meal.strMeasurements){
+                                TextColorBox(
+                                    modifier = Modifier.padding(top = 5.dp, start = 5.dp),
+                                    color = OrangePumpkin,
+                                    text = measure
+                                )
+                            }
+                        }
+                        Text(text = "Instruction",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(LocalSpacing.current.small),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            textAlign = TextAlign.Center,
+                            color = Color.Black
+                        )
                         Text(
                             text = state.meal.strInstructions,
                             color = Color.Black,
@@ -108,7 +185,7 @@ fun FoodDetailScreen(
     }
 
 @Composable
-private fun CollapsingImageLayout(
+private fun CollapsingImageAndTitleLayout(
     collapseFractionProvider: () -> Float,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
@@ -124,7 +201,6 @@ private fun CollapsingImageLayout(
         val imageMinSize = max(CollapsedImageSize.roundToPx(), constraints.minWidth)
         val imageWidth = lerp(imageMaxSize, imageMinSize, collapseFraction)
         val imagePlaceable = image.measure(Constraints.fixed(imageWidth, imageWidth))
-
         val titlePlaceable = title.measure(constraints)
 
         //placement
@@ -134,7 +210,7 @@ private fun CollapsingImageLayout(
             constraints.maxWidth - imageWidth, // right aligned when collapsed
             collapseFraction
         )
-        val titleY = lerp(ExpandedImageSize.roundToPx(), 20, collapseFraction)
+        val titleY = lerp(ExpandedImageSize.roundToPx()+30, MinTitleOffset.roundToPx(), collapseFraction)
         layout(
             width = constraints.maxWidth,
             height = max(imageY + imageWidth, titleY+titlePlaceable.height) +20 //+20 is padding
@@ -145,37 +221,6 @@ private fun CollapsingImageLayout(
     }
 }
 
-//@Composable
-//private fun CollapsingImageLayout(
-//    collapseFractionProvider: () -> Float,
-//    modifier: Modifier = Modifier,
-//    content: @Composable () -> Unit
-//) {
-//    Layout(
-//        modifier = modifier,
-//        content = content
-//    ) { image, constraints ->
-//        val collapseFraction = collapseFractionProvider()
-//
-//        val imageMaxSize = min(ExpandedImageSize.roundToPx(), constraints.maxWidth)
-//        val imageMinSize = max(CollapsedImageSize.roundToPx(), constraints.minWidth)
-//        val imageWidth = lerp(imageMaxSize, imageMinSize, collapseFraction)
-//        val imagePlaceable = image[0].measure(Constraints.fixed(imageWidth, imageWidth))
-//
-//        val imageY = lerp(MinTitleOffset, MinImageOffset, collapseFraction).roundToPx()
-//        val imageX = lerp(
-//            (constraints.maxWidth - imageWidth) / 2, // centered when expanded
-//            constraints.maxWidth - imageWidth, // right aligned when collapsed
-//            collapseFraction
-//        )
-//        layout(
-//            width = constraints.maxWidth,
-//            height = imageY + imageWidth
-//        ) {
-//            imagePlaceable.placeRelative(imageX, imageY)
-//        }
-//    }
-//}
 @Preview
 @Composable
 fun FoodDetailScreenPreview() {

@@ -12,5 +12,6 @@ data class MealEntity(
     val strInstructions: String = "",
     val strMeal: String = "",
     val strMealThumb: String = "",
-    val strIngredients: MutableList<String> = mutableListOf()
+    val strIngredients: MutableList<String> = mutableListOf(),
+    val strMeasurements: MutableList<String> = mutableListOf()
 )

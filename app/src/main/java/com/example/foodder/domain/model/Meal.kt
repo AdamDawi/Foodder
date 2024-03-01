@@ -6,7 +6,8 @@ data class Meal(
     val strInstructions: String = "",
     val strMeal: String = "",
     val strMealThumb: String = "",
-    val strIngredients: MutableList<String> = mutableListOf()
+    val strIngredients: MutableList<String> = mutableListOf(),
+    val strMeasurements: MutableList<String> = mutableListOf()
 )
 
 fun Meal.toMealEntity(): MealEntity {
@@ -16,7 +17,8 @@ fun Meal.toMealEntity(): MealEntity {
         strInstructions = strInstructions,
         strMeal = strMeal,
         strMealThumb = strMealThumb,
-        strIngredients = strIngredients
+        strIngredients = strIngredients,
+        strMeasurements = strMeasurements
     )
 }
 
