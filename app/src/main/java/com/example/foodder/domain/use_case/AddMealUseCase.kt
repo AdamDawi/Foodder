@@ -8,6 +8,6 @@ class AddMealUseCase @Inject constructor(
     private val repository: FoodDbRepository
 ) {
     suspend operator fun invoke(mealEntity: MealEntity){
-        repository.addMeal(mealEntity)
+        if(mealEntity.strMeal.isNotEmpty()) repository.addMeal(mealEntity) //when meal is valid
     }
 }
