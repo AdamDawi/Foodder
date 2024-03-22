@@ -31,7 +31,7 @@ import com.example.foodder.presentation.main_screen.components.MealCard
 import com.example.foodder.presentation.main_screen.components.buildShakeAnimation
 import com.example.foodder.presentation.main_screen.components.shake
 import com.example.foodder.presentation.ui.theme.BackgroundColor
-import com.example.foodder.presentation.ui.theme.Blueblue
+import com.example.foodder.presentation.ui.theme.BlueBlue
 import com.example.foodder.presentation.ui.theme.GreenBlue
 import com.example.foodder.presentation.ui.theme.RedPink
 import com.example.foodder.presentation.util.Screen
@@ -52,7 +52,7 @@ fun MainScreen(
         {
             FloatingActionButton(onClick = {
                 navController.navigate(Screen.FavouriteFoodScreen.route) },
-                containerColor = Blueblue
+                containerColor = BlueBlue
             ) {
                 Icon(imageVector = Icons.Default.List,
                     contentDescription = "List of favourite food",

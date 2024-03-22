@@ -66,7 +66,7 @@ fun MealDto.toMeal(): Meal {
     for (i in 1..20) {
         val ingredient = "strIngredient$i"
         val value = this::class.members.find { it.name == ingredient }?.call(this)?.toString()
-        if (!value.isNullOrEmpty()) {
+        if (!value.isNullOrEmpty() && value != " ") {
             ingredients.add(value)
         }
     }
@@ -74,7 +74,7 @@ fun MealDto.toMeal(): Meal {
     for (i in 1..20) {
         val measure = "strMeasure$i"
         val value = this::class.members.find { it.name == measure }?.call(this)?.toString()
-        if (!value.isNullOrEmpty()) {
+        if (!value.isNullOrEmpty() && value!=" ") {
             measurements.add(value)
         }
     }
