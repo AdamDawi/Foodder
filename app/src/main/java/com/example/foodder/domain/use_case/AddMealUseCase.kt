@@ -7,7 +7,11 @@ import javax.inject.Inject
 class AddMealUseCase @Inject constructor(
     private val repository: FoodDbRepository
 ) {
-    suspend operator fun invoke(mealEntity: MealEntity){
-        if(mealEntity.strMeal.isNotEmpty()) repository.addMeal(mealEntity) //when meal is valid
+    suspend operator fun invoke(mealEntity: MealEntity) {
+        if (mealEntity.strMeal.isNotEmpty() &&
+            mealEntity.strMealThumb.isNotEmpty() &&
+            mealEntity.strInstructions.isNotEmpty()
+        )
+            repository.addMeal(mealEntity) //adding when meal is valid
     }
 }

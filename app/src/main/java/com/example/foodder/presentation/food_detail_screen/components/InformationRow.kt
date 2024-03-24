@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Text
-import com.example.foodder.presentation.ui.theme.OrangePumpkin
+import com.example.foodder.presentation.ui.theme.BlueBlue
 
 @Composable
 fun InformationRow(
@@ -28,7 +28,7 @@ fun InformationRow(
         Icon(
             imageVector = Icons.TwoTone.Info,
             contentDescription = "info",
-            tint = OrangePumpkin,
+            tint = BlueBlue,
             modifier = Modifier
                 .padding(start = 5.dp)
                 .size(28.dp)
@@ -43,7 +43,7 @@ fun InformationRow(
         Icon(
             imageVector = Icons.TwoTone.Info,
             contentDescription = "info",
-            tint = OrangePumpkin,
+            tint = BlueBlue,
             modifier = Modifier
                 .padding(start = 5.dp)
                 .size(28.dp)
