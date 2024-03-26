@@ -22,10 +22,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.foodder.common.Constants
+import com.example.foodder.common.TestTags
 import com.example.foodder.presentation.main_screen.components.AnimatedCounter
 import com.example.foodder.presentation.main_screen.components.MealCard
 import com.example.foodder.presentation.main_screen.components.buildShakeAnimation
@@ -135,7 +137,8 @@ fun MainScreen(
             },
             onCardClicked = {
                 viewModel.changeIsCardFlippedState()
-            }
+            },
+            modifier = Modifier.testTag(TestTags.MEAL_CARD)
         )
     }
     }

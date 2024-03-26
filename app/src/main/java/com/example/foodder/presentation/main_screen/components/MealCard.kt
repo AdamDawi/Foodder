@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.foodder.common.Constants
+import com.example.foodder.common.TestTags
 import com.example.foodder.presentation.main_screen.MainState
 import com.example.foodder.presentation.ui.theme.LocalSpacing
 import com.example.foodder.presentation.ui.theme.OrangePumpkin
@@ -97,6 +99,7 @@ fun MealCard(
                     cameraDistance = 30f
                 }
                 .alpha(alphaImage)
+                .testTag(TestTags.MEAL_CARD_FRONT_SIDE)
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
             ){
                 AsyncImage(
@@ -110,7 +113,8 @@ fun MealCard(
                     text = state.meal.strMeal,
                     modifier = Modifier
                         .align(Alignment.BottomStart)
-                        .padding(LocalSpacing.current.large),
+                        .padding(LocalSpacing.current.large)
+                        .testTag(TestTags.MEAL_TITLE_ON_CARD),
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.ExtraBold,
@@ -127,6 +131,7 @@ fun MealCard(
                 .alpha(alphaDescription)
                 .clip(RoundedCornerShape(Constants.CARD_ROUNDED_CORNER_RADIUS))
                 .background(Color.LightGray)
+                .testTag(TestTags.MEAL_CARD_BACK_SIDE)
             ) {
                 LazyColumn(modifier = Modifier
                     .fillMaxSize()
