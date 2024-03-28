@@ -53,6 +53,9 @@
       <entry key="clickingFoodCard_shouldFlipAndShowDetails()">
         <State />
       </entry>
+      <entry key="notClickingFoodCard_shouldNotShowDetails()">
+        <State />
+      </entry>
       <entry key="swipeFoodCard_shouldDisplayNewFood()">
         <State />
       </entry>
