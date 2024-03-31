@@ -90,7 +90,7 @@ fun MealCard(
             }
         }
     ){
-        if(!state.isLoading && state.errorMessage.isEmpty()){
+        if(state.errorMessage.isEmpty()){
             Box(modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer {

@@ -3,12 +3,39 @@
   <component name="AndroidTestResultsUserPreferences">
     <option name="androidTestResultsTableState">
       <map>
+        <entry key="-1997885069">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Medium_Tablet_API_34" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-1237119794">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Medium_Tablet_API_34" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-821494121">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_6a_API_34" value="120" />
                   <entry key="Pixel_7_API_34_-_Android_14" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
@@ -22,6 +49,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_6a_API_34" value="120" />
                   <entry key="Pixel_7_API_34_-_Android_14" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
@@ -35,6 +63,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_6a_API_34" value="120" />
                   <entry key="Pixel_7_API_34_-_Android_14" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
@@ -62,6 +91,8 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Medium_Tablet_API_31" value="120" />
+                  <entry key="Medium_Tablet_API_34" value="120" />
+                  <entry key="Pixel_6a_API_34" value="120" />
                   <entry key="Pixel_7_API_34_-_Android_14" value="120" />
                   <entry key="Tests" value="360" />
                 </map>

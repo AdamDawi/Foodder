@@ -91,7 +91,8 @@ fun MainScreen(
                         .shake(shakeRightAnimation)
                 )
                 AnimatedCounter(
-                    count = viewModel.swipedRight.intValue
+                    count = viewModel.swipedRight.intValue,
+                    textModifier = Modifier.testTag(TestTags.LIKE_COUNTER)
                 )
             }
         }
@@ -109,7 +110,8 @@ fun MainScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 AnimatedCounter(
-                    count = viewModel.swipedLeft.intValue
+                    count = viewModel.swipedLeft.intValue,
+                    textModifier = Modifier.testTag(TestTags.DELETE_COUNTER)
                 )
                 Icon(
                     imageVector = Icons.Default.Delete,

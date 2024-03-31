@@ -19,7 +19,8 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun AnimatedCounter(
     count: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier
 ) {
     var oldCount by remember{
         mutableIntStateOf(count)
@@ -52,7 +53,8 @@ fun AnimatedCounter(
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Bold,
                     softWrap = false,
-                    maxLines = 1
+                    maxLines = 1,
+                    modifier = textModifier
                 )
             }
         }
