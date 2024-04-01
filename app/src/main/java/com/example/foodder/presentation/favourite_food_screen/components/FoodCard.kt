@@ -35,7 +35,7 @@ fun FoodCard(
     ) {
         Box(modifier = Modifier.fillMaxSize()){
             AsyncImage(model = photo,
-                contentDescription = foodName,
+                contentDescription = "food",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .blur(3.dp)

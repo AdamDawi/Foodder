@@ -26,8 +26,6 @@ import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
@@ -44,13 +42,6 @@ class MainScreenTest {
     //launch a new component activity
     @get:Rule(order = 1)
     val composeRule = createAndroidComposeRule<MainActivity>()
-    lateinit var mockWebServer: MockWebServer
-
-    @After
-    fun stopService() {
-        mockWebServer.shutdown()
-    }
-
 
     @Before
     fun setUp() {
@@ -68,8 +59,6 @@ class MainScreenTest {
                 }
             }
         }
-        mockWebServer = MockWebServer()
-
     }
 
     @Test
@@ -118,39 +107,38 @@ class MainScreenTest {
         assertNotEquals(titleTextBefore?.get(0) ?: "", titleTextAfter?.get(0) ?: "")
     }
 
-//    @Test
-//    fun swipeFoodCardToRight_shouldIncrementLikeCounter() = runBlocking{
-//        val textBefore = composeRule.onNodeWithTag(TestTags.LIKE_COUNTER)
-//            .fetchSemanticsNode().config.getOrNull(Text)
-//            ?.get(0)?.text
-//        assertNotEquals(null, textBefore)
-//        assertEquals("0", textBefore)
+//        @Test
+//        fun swipeFoodCardToRight_shouldIncrementLikeCounter()= runBlocking(){
+//            val textBefore = composeRule.onNodeWithTag(TestTags.LIKE_COUNTER)
+//                .fetchSemanticsNode().config.getOrNull(Text)
+//                ?.get(0)?.text
+//            assertNotEquals(null, textBefore)
+//            assertEquals("0", textBefore)
 //
-//        composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
-//        composeRule.awaitIdle()
+//            composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
 //
-//        val textAfter = composeRule.onNodeWithTag(TestTags.LIKE_COUNTER)
-//            .fetchSemanticsNode().config.getOrNull(Text)?.get(0)?.text
-//        assertNotEquals(null, textAfter)
-//        assertEquals("1", textAfter)
-//    }
+//            val textAfter = composeRule.onNodeWithTag(TestTags.LIKE_COUNTER)
+//                .fetchSemanticsNode().config.getOrNull(Text)?.get(0)?.text
+//            assertNotEquals(null, textAfter)
+//            assertEquals("1", textAfter)
+//        }
 //
-//    @Test
-//    fun swipeFoodCardToLeft_shouldIncrementDeleteCounter() = runBlocking{
-//        val textBefore = composeRule.onNodeWithTag(TestTags.DELETE_COUNTER)
-//            .fetchSemanticsNode().config.getOrNull(Text)
-//            ?.get(0)?.text
-//        assertNotEquals(null, textBefore)
-//        assertEquals("0", textBefore)
 //
-//        composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeLeft()
-//        composeRule.awaitIdle()
+//        @Test
+//        fun swipeFoodCardToLeft_shouldIncrementDeleteCounter()= runBlocking(){
+//            val textBefore = composeRule.onNodeWithTag(TestTags.DELETE_COUNTER)
+//                .fetchSemanticsNode().config.getOrNull(Text)
+//                ?.get(0)?.text
+//            assertNotEquals(null, textBefore)
+//            assertEquals("0", textBefore)
 //
-//        val textAfter = composeRule.onNodeWithTag(TestTags.DELETE_COUNTER)
-//            .fetchSemanticsNode().config.getOrNull(Text)?.get(0)?.text
-//        assertNotEquals(null, textAfter)
-//        assertEquals("1", textAfter)
-//    }
+//            composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeLeft()
+//
+//            val textAfter = composeRule.onNodeWithTag(TestTags.DELETE_COUNTER)
+//                .fetchSemanticsNode().config.getOrNull(Text)?.get(0)?.text
+//            assertNotEquals(null, textAfter)
+//            assertEquals("1", textAfter)
+//        }
 
 
     private fun SemanticsNodeInteraction.swipeRight(){
