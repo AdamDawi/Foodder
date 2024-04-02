@@ -79,6 +79,20 @@ class FoodEndToEndTest {
         composeRule.onNodeWithContentDescription("food").swipeLeft()
         composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
     }
+
+//    @Test
+//    fun swipeCardToRight_checkDetailsAboutFood(){
+//        composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
+//        composeRule.onNodeWithContentDescription("List of favourite food").performClick()
+//        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
+//        val foodNameFavouriteFoodScreen = composeRule.onNodeWithContentDescription("food").fetchSemanticsNode()
+//            .config.getOrNull(Text)?.get(0)?.text
+//        composeRule.onNodeWithContentDescription("food").performClick()
+//        composeRule.waitForIdle()
+//        val foodNameDetailScreen = composeRule.onNodeWithTag(TestTags.DETAIL_SCREEN_FOOD).fetchSemanticsNode()
+//            .config.getOrNull(Text)?.get(0)?.text
+//        assertEquals(foodNameFavouriteFoodScreen, foodNameDetailScreen)
+//    }
     private fun SemanticsNodeInteraction.swipeRight(){
         this.performTouchInput { swipeRight(centerX, centerX + centerX) }
     }

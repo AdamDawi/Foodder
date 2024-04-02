@@ -16,7 +16,10 @@ class FakeDbRepository: FoodDbRepository {
     }
 
     override fun getMealById(id: Int): Flow<MealEntity> {
-        return flow { emit(db[0]) }
+        for(i in db){
+            if(i.id==id) return flow { emit(i) }
+        }
+        return flow { MealEntity() }
     }
 
     override suspend fun updateMeal(mealEntity: MealEntity) {

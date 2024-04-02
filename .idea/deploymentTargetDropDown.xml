@@ -2,6 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="FoodEndToEndTest">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\adamd\.android\avd\Pixel_6a_API_34.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-02T06:05:04.393560500Z" />
+        </State>
+      </entry>
       <entry key="MainScreenTest">
         <State />
       </entry>
@@ -21,6 +37,9 @@
           <timeTargetWasSelectedWithDropDown value="2024-03-29T06:31:14.058790400Z" />
         </State>
       </entry>
+      <entry key="swipeCardToRight_deleteAfterwards()">
+        <State />
+      </entry>
       <entry key="swipeCard_deleteAfterwards()">
         <State />
       </entry>
@@ -39,9 +58,6 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-01T16:32:55.885098900Z" />
         </State>
-      </entry>
-      <entry key="swipeFoodCardToRight_shouldIncrementLikeCounter()">
-        <State />
       </entry>
     </value>
   </component>

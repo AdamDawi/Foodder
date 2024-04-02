@@ -20,6 +20,7 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -32,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.wear.compose.material.Text
 import coil.compose.AsyncImage
+import com.example.foodder.common.TestTags
 import com.example.foodder.common.TopAppBarView
 import com.example.foodder.presentation.food_detail_screen.components.InformationRow
 import com.example.foodder.presentation.food_detail_screen.components.IngredientRow
@@ -97,7 +99,8 @@ fun FoodDetailScreen(
                     text = state.meal.strMeal,
                     color = Color.Black,
                     modifier = Modifier
-                        .widthIn(max = screenWidth / 2),
+                        .widthIn(max = screenWidth / 2)
+                        .testTag(TestTags.DETAIL_SCREEN_FOOD),
                     fontWeight = FontWeight.Bold,
                     fontSize = MainTitleSize,
                     maxLines = 2,
