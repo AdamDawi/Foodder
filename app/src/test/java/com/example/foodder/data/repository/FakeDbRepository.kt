@@ -7,6 +7,11 @@ import kotlinx.coroutines.flow.flow
 
 class FakeDbRepository: FoodDbRepository {
     private val db: MutableList<MealEntity> = mutableListOf()
+    private var shouldReturnNetworkError = false
+
+    fun setShouldReturnNetworkError(value: Boolean){
+        shouldReturnNetworkError = value //TODO make: handling errors while fetching data from database
+    }
     override suspend fun addMeal(mealEntity: MealEntity) {
         db.add(mealEntity)
     }
@@ -29,6 +34,4 @@ class FakeDbRepository: FoodDbRepository {
     override suspend fun deleteMeal(mealEntity: MealEntity) {
         db.removeAt(mealEntity.id)
     }
-
-
 }

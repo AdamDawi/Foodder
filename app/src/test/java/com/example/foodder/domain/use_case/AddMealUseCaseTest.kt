@@ -1,7 +1,9 @@
 package com.example.foodder.domain.use_case
 
 import com.example.foodder.data.repository.FakeDbRepository
+import com.example.foodder.domain.model.Meal
 import com.example.foodder.domain.model.MealEntity
+import com.example.foodder.domain.model.toMealEntity
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -20,90 +22,79 @@ class AddMealUseCaseTest{
     }
     @Test
     fun `Should not add empty meal to database`(){
-        val meal = MealEntity()
+        val meal = Meal()
 
         val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
             result = fakeDbRepository.getAllMeals().first()
         }
-        assertThat(result).doesNotContain(meal)
-
-
+        assertThat(result).doesNotContain(meal.toMealEntity())
     }
     @Test
     fun `Should not add meal with empty strMeal to database`(){
-        val meal = MealEntity(
+        val meal = Meal(
             strArea = "k",
             strCategory = "k",
             strInstructions = "k",
             strMeal = "",
-            strMealThumb = "k",
-            strIngredients = mutableListOf(),
-            strMeasurements = mutableListOf()
+            strMealThumb = "k"
         )
         val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
             result = fakeDbRepository.getAllMeals().first()
         }
-        assertThat(result).doesNotContain(meal)
+        assertThat(result).doesNotContain(meal.toMealEntity())
 
     }
     @Test
     fun `Should not add meal with empty strMealThumb to database`(){
-        val meal = MealEntity(
+        val meal = Meal(
             strArea = "k",
             strCategory = "k",
             strInstructions = "k",
             strMeal = "k",
-            strMealThumb = "",
-            strIngredients = mutableListOf(),
-            strMeasurements = mutableListOf()
+            strMealThumb = ""
         )
         val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
             result = fakeDbRepository.getAllMeals().first()
         }
-        assertThat(result).doesNotContain(meal)
+        assertThat(result).doesNotContain(meal.toMealEntity())
 
     }
     @Test
     fun `Should not add meal with empty instructions to database`(){
-        val meal = MealEntity(
+        val meal = Meal(
             strArea = "k",
             strCategory = "k",
             strInstructions = "",
             strMeal = "k",
-            strMealThumb = "k",
-            strIngredients = mutableListOf(),
-            strMeasurements = mutableListOf()
+            strMealThumb = "k"
         )
         val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
             result = fakeDbRepository.getAllMeals().first()
         }
-        assertThat(result).doesNotContain(meal)
-
+        assertThat(result).doesNotContain(meal.toMealEntity())
     }
     @Test
     fun `Should add complete meal data to database`(){
-        val meal = MealEntity(
+        val meal = Meal(
             strArea = "k",
             strCategory = "k",
             strInstructions = "k",
             strMeal = "k",
-            strMealThumb = "k",
-            strIngredients = mutableListOf(),
-            strMeasurements = mutableListOf()
+            strMealThumb = "k"
         )
         val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
             result = fakeDbRepository.getAllMeals().first()
         }
-        assertThat(result).contains(meal)
+        assertThat(result).contains(meal.toMealEntity())
     }
 }
