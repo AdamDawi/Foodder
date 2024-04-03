@@ -14,14 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
-import com.example.foodder.common.Constants
 
+private const val FLIP_CARD_ANIMATION_TIME = 400
 @Composable
 fun buildRotationAnimation(targetValue: Float) =
     animateFloatAsState(
         targetValue = targetValue,
         animationSpec = tween(
-            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME,
+            durationMillis = FLIP_CARD_ANIMATION_TIME,
             easing = LinearOutSlowInEasing
         ),
         label = ""
@@ -32,7 +32,7 @@ fun buildAlphaAnimation(targetValue: Float) =
     animateFloatAsState(
         targetValue = targetValue,
         animationSpec = tween(
-            durationMillis = Constants.FLIP_CARD_ANIMATION_TIME - 150,
+            durationMillis = FLIP_CARD_ANIMATION_TIME - 150,
             easing = LinearOutSlowInEasing
         ),
         label = ""

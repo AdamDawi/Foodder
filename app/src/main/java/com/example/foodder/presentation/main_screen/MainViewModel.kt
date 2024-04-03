@@ -7,7 +7,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.foodder.common.Constants
 import com.example.foodder.common.Resource
 import com.example.foodder.domain.model.Meal
 import com.example.foodder.domain.model.toMealEntity
@@ -22,6 +21,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val OFFSET_LIMIT = 120
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getRandomFoodUseCase: GetRandomFoodUseCase,
@@ -67,11 +67,11 @@ class MainViewModel @Inject constructor(
                 _state.value.cardOffset.y+dragAmount.y
             )
         )
-        if(state.value.cardOffset.x>Constants.OFFSET_LIMIT){
+        if(state.value.cardOffset.x>OFFSET_LIMIT){
             setCardBorderColorState(GreenBlue)
             _state.value = _state.value.copy(isSwipeToRightShaking = true)
         }
-        else if(state.value.cardOffset.x<-Constants.OFFSET_LIMIT){
+        else if(state.value.cardOffset.x<-OFFSET_LIMIT){
             setCardBorderColorState(RedPink)
             _state.value = _state.value.copy(isSwipeToLeftShaking = true)
         }
@@ -95,7 +95,7 @@ class MainViewModel @Inject constructor(
 
     fun checkSwipeBounds() {
         //Swipe right
-        if(state.value.cardOffset.x>Constants.OFFSET_LIMIT && !state.value.isLoading){
+        if(state.value.cardOffset.x>OFFSET_LIMIT && !state.value.isLoading){
             viewModelScope.launch {
                 addMealUseCase(state.value.meal.toMealEntity())
             }
@@ -105,7 +105,7 @@ class MainViewModel @Inject constructor(
             _swipedRight.intValue++
         }
         //Swipe left
-        else if(state.value.cardOffset.x<-Constants.OFFSET_LIMIT && !state.value.isLoading){
+        else if(state.value.cardOffset.x<-OFFSET_LIMIT && !state.value.isLoading){
             getRandomFood()
             resetImageOffset()
             setCardBorderColorState(Color.Transparent)

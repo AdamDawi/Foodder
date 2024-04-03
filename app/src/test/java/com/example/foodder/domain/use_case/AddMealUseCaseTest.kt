@@ -22,11 +22,13 @@ class AddMealUseCaseTest{
     fun `Should not add empty meal to database`(){
         val meal = MealEntity()
 
+        val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
-            val result = fakeDbRepository.getAllMeals().first()
-            assertThat(result.contains(meal)).isFalse()
+            result = fakeDbRepository.getAllMeals().first()
         }
+        assertThat(result).doesNotContain(meal)
+
 
     }
     @Test
@@ -40,11 +42,13 @@ class AddMealUseCaseTest{
             strIngredients = mutableListOf(),
             strMeasurements = mutableListOf()
         )
+        val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
-            val result = fakeDbRepository.getAllMeals().first()
-            assertThat(result.contains(meal)).isFalse()
+            result = fakeDbRepository.getAllMeals().first()
         }
+        assertThat(result).doesNotContain(meal)
+
     }
     @Test
     fun `Should not add meal with empty strMealThumb to database`(){
@@ -57,11 +61,13 @@ class AddMealUseCaseTest{
             strIngredients = mutableListOf(),
             strMeasurements = mutableListOf()
         )
+        val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
-            val result = fakeDbRepository.getAllMeals().first()
-            assertThat(result.contains(meal)).isFalse()
+            result = fakeDbRepository.getAllMeals().first()
         }
+        assertThat(result).doesNotContain(meal)
+
     }
     @Test
     fun `Should not add meal with empty instructions to database`(){
@@ -74,11 +80,12 @@ class AddMealUseCaseTest{
             strIngredients = mutableListOf(),
             strMeasurements = mutableListOf()
         )
+        val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
-            val result = fakeDbRepository.getAllMeals().first()
-            assertThat(result.contains(meal)).isFalse()
+            result = fakeDbRepository.getAllMeals().first()
         }
+        assertThat(result).doesNotContain(meal)
 
     }
     @Test
@@ -92,11 +99,11 @@ class AddMealUseCaseTest{
             strIngredients = mutableListOf(),
             strMeasurements = mutableListOf()
         )
-
+        val result: List<MealEntity>
         runBlocking {
             addMealUseCase(meal)
-            val result = fakeDbRepository.getAllMeals().first()
-            assertThat(result.contains(meal)).isTrue()
+            result = fakeDbRepository.getAllMeals().first()
         }
+        assertThat(result).contains(meal)
     }
 }

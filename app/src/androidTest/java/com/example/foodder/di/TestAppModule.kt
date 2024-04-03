@@ -49,7 +49,7 @@ object TestAppModule {
         return Room.inMemoryDatabaseBuilder(
             app,
             FoodDatabase::class.java
-        ).build()
+        ).allowMainThreadQueries().build()
     }
     @Provides
     @Singleton
