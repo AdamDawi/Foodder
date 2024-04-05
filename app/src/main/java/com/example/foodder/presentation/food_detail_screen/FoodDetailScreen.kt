@@ -143,7 +143,7 @@ fun FoodDetailScreen(
                     textAlign = TextAlign.Center,
                     color = Color.Black
                 )
-                for (i in 0 until state.meal.strIngredients.size) {
+                for (i in 0 until min(state.meal.strIngredients.size, state.meal.strMeasurements.size)) {
                     IngredientRow(
                         uriHandler = uriHandler,
                         ingredient = state.meal.strIngredients[i],

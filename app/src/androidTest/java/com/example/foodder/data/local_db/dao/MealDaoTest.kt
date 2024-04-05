@@ -1,31 +1,36 @@
 package com.example.foodder.data.local_db.dao
 
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.foodder.data.local_db.FoodDatabase
+import com.example.foodder.di.AppModule
 import com.example.foodder.domain.model.MealEntity
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.UninstallModules
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
+import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
+@UninstallModules(AppModule::class)
 @SmallTest
 class MealDaoTest{
+
+    @Inject
+    lateinit var database: FoodDatabase
     private lateinit var dao: MealDao
-    private lateinit var database: FoodDatabase
     private lateinit var meal: MealEntity
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
     @Before
     fun setUp(){
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            FoodDatabase::class.java
-        ).allowMainThreadQueries().build()
+        hiltRule.inject()
         dao = database.mealDao
         meal = MealEntity(
             id = 1,

@@ -15,11 +15,40 @@
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-03T15:55:30.406500400Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-05T04:35:46.511320300Z" />
+        </State>
+      </entry>
+      <entry key="MainScreenTest">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\adamd\.android\avd\Pixel_4_API_31_-_Android_12.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-03T18:56:47.999849300Z" />
         </State>
       </entry>
       <entry key="MealDaoTest">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\adamd\.android\avd\Pixel_7_API_34_-_Android_14.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-05T04:39:34.944057100Z" />
+        </State>
       </entry>
       <entry key="app">
         <State>
@@ -34,11 +63,8 @@
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-03T16:10:52.523912600Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-05T04:31:22.383064800Z" />
         </State>
-      </entry>
-      <entry key="insertMeal()">
-        <State />
       </entry>
     </value>
   </component>
