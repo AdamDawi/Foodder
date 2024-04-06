@@ -2,6 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="All Tests">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\adamd\.android\avd\Pixel_7_API_34_-_Android_14.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-06T08:27:31.659771700Z" />
+        </State>
+      </entry>
       <entry key="FoodEndToEndTest">
         <State>
           <targetSelectedWithDropDown>
@@ -16,22 +32,6 @@
             </Target>
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-05T04:35:46.511320300Z" />
-        </State>
-      </entry>
-      <entry key="MainScreenTest">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\adamd\.android\avd\Pixel_4_API_31_-_Android_12.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-03T18:56:47.999849300Z" />
         </State>
       </entry>
       <entry key="MealDaoTest">
@@ -52,18 +52,18 @@
       </entry>
       <entry key="app">
         <State>
-          <targetSelectedWithDropDown>
+          <runningDeviceTargetSelectedWithDropDown>
             <Target>
-              <type value="QUICK_BOOT_TARGET" />
+              <type value="RUNNING_DEVICE_TARGET" />
               <deviceKey>
                 <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\adamd\.android\avd\Pixel_7_API_34_-_Android_14.avd" />
+                  <type value="SERIAL_NUMBER" />
+                  <value value="R5CW70VTNSF" />
                 </Key>
               </deviceKey>
             </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-05T04:31:22.383064800Z" />
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-06T08:14:54.167770600Z" />
         </State>
       </entry>
     </value>
