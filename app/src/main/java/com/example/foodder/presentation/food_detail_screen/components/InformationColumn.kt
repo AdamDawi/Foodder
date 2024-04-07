@@ -17,9 +17,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Text
+import com.example.foodder.presentation.ui.theme.BlueBlue
 
 @Composable
-fun InformationRow(
+fun InformationColumn(
     modifier: Modifier = Modifier,
     strArea: String,
     strCategory: String
@@ -37,7 +38,7 @@ fun InformationRow(
             Icon(
                 imageVector = Icons.Outlined.Info,
                 contentDescription = "info",
-                tint = Color.Black,
+                tint = BlueBlue,
                 modifier = Modifier
                     .size(28.dp)
             )
@@ -56,7 +57,7 @@ fun InformationRow(
             Icon(
                 imageVector = Icons.Outlined.Info,
                 contentDescription = "info",
-                tint = Color.Black,
+                tint = BlueBlue,
                 modifier = Modifier
                     .size(28.dp)
             )

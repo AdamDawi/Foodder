@@ -17,13 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Text
 import com.example.foodder.common.Constants
 
 @Composable
-fun IngredientRow(
+fun IngredientRowSearch(
     modifier: Modifier = Modifier,
     ingredient: String,
     measurement: String
@@ -34,7 +36,7 @@ fun IngredientRow(
         .padding(top = 5.dp, bottom = 5.dp)
         .clip(RoundedCornerShape(18.dp))
         .clickable {
-            uriHandler.openUri(Constants.GOOGLE_URL+ingredient)
+            uriHandler.openUri(Constants.GOOGLE_URL + ingredient)
         },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -53,7 +55,9 @@ fun IngredientRow(
                 modifier = Modifier.padding(start = 5.dp),
                 color = Color.Black,
                 text = "$ingredient - $measurement",
-                fontSize = 18.sp
+                fontSize = 18.sp,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis
             )
         }
         Icon(
@@ -63,4 +67,16 @@ fun IngredientRow(
             modifier = Modifier.size(40.dp)
         )
     }
+}
+
+@Preview
+@Composable
+private fun IngredientRowPreviewNormal() {
+    IngredientRowSearch(ingredient = "Garlic", measurement = "1 clove")
+}
+
+@Preview
+@Composable
+private fun IngredientRowPreviewLong() {
+    IngredientRowSearch(ingredient = "Garlicccccccccccccccccccccccccccccccccc", measurement = "1 clove")
 }

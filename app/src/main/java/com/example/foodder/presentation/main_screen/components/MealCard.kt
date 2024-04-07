@@ -6,9 +6,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.twotone.Info
+import androidx.compose.material.icons.twotone.ShoppingCart
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,9 +42,9 @@ import coil.compose.AsyncImage
 import com.example.foodder.common.Constants
 import com.example.foodder.common.TestTags
 import com.example.foodder.presentation.main_screen.MainState
+import com.example.foodder.presentation.ui.theme.BlueBlue
 import com.example.foodder.presentation.ui.theme.LocalSpacing
 import com.example.foodder.presentation.ui.theme.OrangePumpkin
-import com.example.foodder.presentation.ui.theme.YellowMaize
 import kotlin.math.roundToInt
 
 
@@ -149,13 +152,13 @@ fun MealCard(
                             fontWeight = FontWeight.ExtraBold,
                             textAlign = TextAlign.Center
                         )
-                        Row(modifier = Modifier
+                        Column(modifier = Modifier
                             .fillMaxWidth()
                             .padding(LocalSpacing.current.small)
                         ) {
-                            TextColorBox(color = YellowMaize, text = state.meal.strArea)
+                            TextWithIconRow(iconColor = BlueBlue, icon = Icons.TwoTone.Info, text = state.meal.strArea)
                             Spacer(modifier = Modifier.width(5.dp))
-                            TextColorBox(color = YellowMaize, text = state.meal.strCategory)
+                            TextWithIconRow(iconColor = BlueBlue, icon = Icons.TwoTone.Info, text = state.meal.strCategory)
                         }
                         Text(
                             text = "Ingredients",
@@ -170,9 +173,10 @@ fun MealCard(
                             .fillMaxSize()
                         ) {
                             for(ingredient in state.meal.strIngredients){
-                                TextColorBox(
+                                TextWithIconRow(
                                     modifier = Modifier.padding(top = 5.dp, start = 5.dp),
-                                    color = OrangePumpkin,
+                                    iconColor = OrangePumpkin,
+                                    icon = Icons.TwoTone.ShoppingCart,
                                     text = ingredient
                                 )
                             }

@@ -43,8 +43,8 @@ import androidx.navigation.NavController
 import androidx.wear.compose.material.Text
 import coil.compose.AsyncImage
 import com.example.foodder.common.TopAppBarView
-import com.example.foodder.presentation.food_detail_screen.components.InformationRow
-import com.example.foodder.presentation.food_detail_screen.components.IngredientRow
+import com.example.foodder.presentation.food_detail_screen.components.InformationColumn
+import com.example.foodder.presentation.food_detail_screen.components.IngredientRowSearch
 import com.example.foodder.presentation.ui.theme.LocalSpacing
 import com.example.foodder.presentation.ui.theme.OrangePumpkin
 import kotlin.math.max
@@ -118,7 +118,7 @@ fun FoodDetailScreen(
                         .rotate(collapseFractionProvider() * ImageRotationDegree - ImageRotationDegree),
                     contentScale = ContentScale.Crop
                 )
-                InformationRow(
+                InformationColumn(
                     modifier = Modifier
                         .height(InfoTitleSize),
                     strArea = state.meal.strArea,
@@ -149,9 +149,9 @@ fun FoodDetailScreen(
                             state.meal.strMeasurements.size)
                         ) {
                             key(state.meal.id) {
-                                IngredientRow(
+                                IngredientRowSearch(
                                     ingredient = state.meal.strIngredients[i],
-                                    measurement = state.meal.strMeasurements[i]
+                                    measurement = state.meal.strMeasurements[i],
                                 )
                             }
                             Divider(color = Color.Black)
