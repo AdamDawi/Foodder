@@ -44,9 +44,9 @@ fun MainScreen(
     navController: NavController
 ) {
     val state = viewModel.state.value
-
     val shakeRightAnimation = buildShakeAnimation(isShaking = state.isSwipeToRightShaking)
     val shakeLeftAnimation = buildShakeAnimation(isShaking = state.isSwipeToLeftShaking)
+
     Scaffold(modifier = Modifier
         .fillMaxSize(),
         containerColor = BackgroundColor,
@@ -143,5 +143,7 @@ fun MainScreen(
             modifier = Modifier.testTag(TestTags.MEAL_CARD)
         )
     }
+
+
     }
 }

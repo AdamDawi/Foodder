@@ -85,6 +85,8 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+    //lottie
+    implementation("com.airbnb.android:lottie-compose:6.0.0")
 
     // Local unit tests
     testImplementation("androidx.test:core:1.4.0")

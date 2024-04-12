@@ -23,10 +23,10 @@ class FoodDetailViewModel @Inject constructor(
         getMealByIdUseCase(id).onEach {result->
             when(result){
                 is Resource.Success -> {
-                    _state.value = _state.value.copy(meal = result.data ?: MealEntity())
+                    _state.value = _state.value.copy(meal = result.data ?: MealEntity(), errorMessage = "", isLoading = false)
                 }
                 is Resource.Error -> {
-                    _state.value = _state.value.copy(errorMessage = result.message ?: "An unexpected error")
+                    _state.value = _state.value.copy(errorMessage = result.message ?: "An unexpected error", isLoading = false)
                 }
                 is Resource.Loading -> {
                     _state.value = _state.value.copy(isLoading = true)

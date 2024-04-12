@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.foodder.common.SplashScreen
 import com.example.foodder.presentation.favourite_food_screen.FavouriteFoodScreen
 import com.example.foodder.presentation.food_detail_screen.FoodDetailScreen
 import com.example.foodder.presentation.main_screen.MainScreen
@@ -14,8 +15,11 @@ import com.example.foodder.presentation.main_screen.MainScreen
 fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController,
-        startDestination = Screen.MainScreen.route
+        startDestination = Screen.SplashScreen.route
         ){
+        composable(route = Screen.SplashScreen.route){
+            SplashScreen(navController = navController)
+        }
         composable(route = Screen.MainScreen.route){
             MainScreen(navController = navController)
         }

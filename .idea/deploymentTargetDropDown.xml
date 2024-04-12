@@ -4,6 +4,17 @@
     <value>
       <entry key="All Tests">
         <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\adamd\.android\avd\Pixel_7_API_34_-_Android_14.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
           <targetSelectedWithDropDown>
             <Target>
               <type value="QUICK_BOOT_TARGET" />
@@ -15,7 +26,7 @@
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-06T08:27:31.659771700Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-12T18:54:07.239542700Z" />
         </State>
       </entry>
       <entry key="FoodEndToEndTest">
@@ -51,20 +62,7 @@
         </State>
       </entry>
       <entry key="app">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\adamd\.android\avd\Pixel_7_API_34_-_Android_14.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-06T21:53:46.504558300Z" />
-        </State>
+        <State />
       </entry>
     </value>
   </component>

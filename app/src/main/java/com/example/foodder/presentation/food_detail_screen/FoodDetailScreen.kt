@@ -2,6 +2,7 @@ package com.example.foodder.presentation.food_detail_screen
 
 import android.graphics.BlurMaskFilter
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +18,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
@@ -42,6 +46,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.wear.compose.material.Text
 import coil.compose.AsyncImage
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.foodder.R
 import com.example.foodder.common.TopAppBarView
 import com.example.foodder.presentation.food_detail_screen.components.InformationColumn
 import com.example.foodder.presentation.food_detail_screen.components.IngredientRowSearch
@@ -78,14 +87,28 @@ fun FoodDetailScreen(
     navController: NavController,
     viewModel: FoodDetailViewModel = hiltViewModel()
 ) {
-    viewModel.getMealById(id)
+    LaunchedEffect(id) {
+        viewModel.getMealById(id)
+    }
     val state = viewModel.state.value
     val scroll = rememberScrollState(0)
     val collapseRange = with(LocalDensity.current) { (ExpandedImageSize - MinImageYOffset).toPx() }
     val collapseFractionProvider = {
         (scroll.value / collapseRange).coerceIn(0f, 1f)
     }
-
+    val loading by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+    if(state.isLoading){
+        Column(modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            LottieAnimation(
+                modifier = Modifier.size(160.dp),
+                composition = loading,
+                iterations = LottieConstants.IterateForever
+            )
+        }
+    }else{
     Scaffold(
         topBar = {
             TopAppBarView(
@@ -102,7 +125,7 @@ fun FoodDetailScreen(
                 .fillMaxSize()
                 .padding(it),
         ) {
-            CollapsingImageAndTitleLayout(
+            DynamicDetailsLayout(
                 collapseFractionProvider = collapseFractionProvider
             ) {
                 AsyncImage(
@@ -133,7 +156,11 @@ fun FoodDetailScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(scroll)
-                            .padding(start = TextPadding, end = TextPadding, bottom = TextPadding +8.dp + CollapsedImageSize) //because Y of Column was moved by CollapsedImageSize
+                            .padding(
+                                start = TextPadding,
+                                end = TextPadding,
+                                bottom = TextPadding + 8.dp + CollapsedImageSize
+                            ) //because Y of Column was moved by CollapsedImageSize
                     ) {
                         Spacer(modifier = Modifier.height(40.dp))
                         Text(
@@ -172,6 +199,8 @@ fun FoodDetailScreen(
                             fontSize = 18.sp
                         )
                     }
+
+                }
                 }
             }
         }
@@ -180,7 +209,7 @@ fun FoodDetailScreen(
 
 
 @Composable
-private fun CollapsingImageAndTitleLayout(
+private fun DynamicDetailsLayout(
     collapseFractionProvider: () -> Float,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
