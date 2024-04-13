@@ -41,13 +41,13 @@ fun TopAppBarView(
         },
         navigationIcon = {
             Box(modifier = Modifier
-                .size(30.dp)
+                .size(35.dp)
             ){
                 IconButton(onClick = { onBack() }) {
                     Icon(imageVector = Icons.Default.KeyboardArrowLeft,
                         contentDescription = "Arrow back",
                         modifier = Modifier
-                            .size(30.dp),
+                            .size(35.dp),
                         tint = themeColor
                     )
                 }

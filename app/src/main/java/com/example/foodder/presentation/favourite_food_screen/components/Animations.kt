@@ -22,5 +22,5 @@ fun buildColorAnimation(dismissState: DismissState) =
 fun buildSizeAnimation(dismissState: DismissState) =
     animateFloatAsState(
         if (dismissState.targetValue == DismissValue.Default) 0.6f else 1f,
-        label = ""
+        label = "sizeAnimation"
     ).value

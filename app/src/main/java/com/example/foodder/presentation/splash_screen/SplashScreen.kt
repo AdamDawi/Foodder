@@ -1,4 +1,4 @@
-package com.example.foodder.common
+package com.example.foodder.presentation.splash_screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
