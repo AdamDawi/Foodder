@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.airbnb.lottie.compose.LottieAnimation
@@ -15,6 +16,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.foodder.R
+import com.example.foodder.common.TestTags
 import com.example.foodder.presentation.util.Screen
 
 @Composable
@@ -33,7 +35,8 @@ fun SplashScreen(
         LottieAnimation(
             modifier = Modifier
                 .padding(start = 60.dp, end = 60.dp)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .testTag(TestTags.SPLASH_SCREEN_ANIMATION),
             composition = loading
         )
     }

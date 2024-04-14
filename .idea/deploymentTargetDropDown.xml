@@ -29,6 +29,12 @@
           <timeTargetWasSelectedWithDropDown value="2024-04-12T18:54:07.239542700Z" />
         </State>
       </entry>
+      <entry key="AnimationTests">
+        <State />
+      </entry>
+      <entry key="AnimationsTest">
+        <State />
+      </entry>
       <entry key="FoodEndToEndTest">
         <State>
           <targetSelectedWithDropDown>
@@ -62,20 +68,10 @@
         </State>
       </entry>
       <entry key="app">
-        <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\adamd\.android\avd\Pixel_4_API_31_-_Android_12.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-13T08:06:38.970671300Z" />
-        </State>
+        <State />
+      </entry>
+      <entry key="splashScreenAnimationTest()">
+        <State />
       </entry>
     </value>
   </component>
