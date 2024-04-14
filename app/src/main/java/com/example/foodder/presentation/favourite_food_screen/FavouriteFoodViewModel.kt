@@ -16,11 +16,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavouriteFoodViewModel @Inject constructor(
-    private val favouriteFoodScreenUseCases: FavouriteFoodScreenUseCases,
+    private val favouriteFoodScreenUseCases: FavouriteFoodScreenUseCases
 ): ViewModel() {
 
     private val _state = mutableStateOf(FavouriteFoodState())
     val state: State<FavouriteFoodState> = _state
+
+    private var lastDeletedMeal: MealEntity = MealEntity()
 
     init {
         getAllMeals()
@@ -41,8 +43,16 @@ class FavouriteFoodViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
     fun deleteMeal(mealEntity: MealEntity){
+        lastDeletedMeal = mealEntity
         viewModelScope.launch(Dispatchers.IO) {
             favouriteFoodScreenUseCases.deleteMealUseCase(mealEntity)
         }
+    }
+
+    fun undoDeleteMeal() {
+        viewModelScope.launch {
+            favouriteFoodScreenUseCases.addMealUseCase(lastDeletedMeal)
+        }
+        lastDeletedMeal = MealEntity()
     }
 }

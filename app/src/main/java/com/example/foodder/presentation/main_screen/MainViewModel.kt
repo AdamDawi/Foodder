@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodder.common.Resource
 import com.example.foodder.domain.model.Meal
+import com.example.foodder.domain.model.toMealEntity
 import com.example.foodder.domain.use_case.AddMealUseCase
 import com.example.foodder.domain.use_case.GetRandomFoodUseCase
 import com.example.foodder.presentation.ui.theme.GreenBlue
@@ -101,7 +102,7 @@ class MainViewModel @Inject constructor(
         //Swipe right
         if(state.value.cardOffset.x>OFFSET_LIMIT && !state.value.isLoading){
             viewModelScope.launch {
-                addMealUseCase(state.value.meal)
+                addMealUseCase(state.value.meal.toMealEntity())
             }
             getRandomFood()
             resetImageOffset()

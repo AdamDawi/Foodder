@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
@@ -105,7 +106,16 @@ fun FavouriteFoodScreen(
                 LaunchedEffect(show) {
                     if (!show) {
                         scope.launch {
-                            snackBarHostState.showSnackbar("Food deleted", duration = SnackbarDuration.Short)
+                            val result = snackBarHostState.showSnackbar(
+                                message = "Food deleted",
+                                duration = SnackbarDuration.Short,
+                                withDismissAction = true,
+                                actionLabel = "Undo"
+                            )
+
+                            if(result == SnackbarResult.ActionPerformed){
+                                viewModel.undoDeleteMeal()
+                            }
                         }
                         viewModel.deleteMeal(currentItem)
                     }
