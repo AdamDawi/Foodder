@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.foodder.R
-import com.example.foodder.presentation.ui.theme.LightRed
+import com.example.foodder.presentation.ui.theme.RedPink
 
 @Composable
 fun FoodCard(
@@ -39,6 +39,7 @@ fun FoodCard(
     Card(modifier = modifier
         .fillMaxWidth()
         .height(150.dp)
+
     ) {
         Box(modifier = Modifier.fillMaxSize()){
             AsyncImage(model = photo,
@@ -65,10 +66,11 @@ fun FoodCard(
                 modifier = Modifier.align(Alignment.TopEnd)
             ){
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_delete_food),
+                    painter = painterResource(id = R.drawable.ic_x),
                     contentDescription = "Delete food",
-                    tint = LightRed,
-                    modifier = Modifier.size(18.dp)
+                    tint = RedPink,
+                    modifier = Modifier
+                        .size(20.dp)
                 )
             }
         }

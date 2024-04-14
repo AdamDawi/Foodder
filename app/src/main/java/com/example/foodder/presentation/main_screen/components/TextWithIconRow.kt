@@ -32,7 +32,7 @@ fun TextWithIconRow(
         modifier = modifier.fillMaxWidth()) {
         Icon(
             imageVector = icon,
-            contentDescription = "shopping cart",
+            contentDescription = icon.name,
             tint = iconColor,
             modifier = Modifier
                 .padding(start = 5.dp)

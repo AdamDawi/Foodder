@@ -29,11 +29,11 @@ class MainViewModel @Inject constructor(
     private val _state = mutableStateOf(MainState())
     val state: State<MainState> = _state
 
-    private val _swipedRight = mutableIntStateOf(0)
-    val swipedRight = _swipedRight
+    private val _rightSwipeCounter = mutableIntStateOf(0)
+    val rightSwipeCounter = _rightSwipeCounter
 
-    private val _swipedLeft = mutableIntStateOf(0)
-    val swipedLeft = _swipedLeft
+    private val _leftSwipeCounter = mutableIntStateOf(0)
+    val leftSwipeCounter = _leftSwipeCounter
 
     private var getRandomFoodJob: Job? = null
 
@@ -58,7 +58,22 @@ class MainViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun onCardDrag(dragAmount: Offset) {
+    fun onEvent(event: MainEvent){
+        when(event){
+            is MainEvent.OnCardDrag ->{
+                onCardDrag(event.dragAmount)
+            }
+            is MainEvent.OnCardClicked ->{
+                changeIsCardFlippedState()
+            }
+            is MainEvent.OnCardDragEnd ->{
+                checkSwipeBounds()
+            }
+        }
+    }
+
+    private fun onCardDrag(dragAmount: Offset) {
+        //change offset of card
         _state.value = _state.value.copy(
             cardOffset =
             Offset(
@@ -66,21 +81,44 @@ class MainViewModel @Inject constructor(
                 _state.value.cardOffset.y+dragAmount.y
             )
         )
+        //close to right
         if(state.value.cardOffset.x>OFFSET_LIMIT){
             setCardBorderColorState(GreenBlue)
             _state.value = _state.value.copy(isSwipeToRightShaking = true)
         }
+        //close to left
         else if(state.value.cardOffset.x<-OFFSET_LIMIT){
             setCardBorderColorState(RedPink)
             _state.value = _state.value.copy(isSwipeToLeftShaking = true)
         }
+        //neutral
         else {
             setCardBorderColorState(Color.Transparent)
             _state.value = _state.value.copy(isSwipeToRightShaking = false, isSwipeToLeftShaking = false)
         }
     }
+    private fun checkSwipeBounds() {
+        //Swipe right
+        if(state.value.cardOffset.x>OFFSET_LIMIT && !state.value.isLoading){
+            viewModelScope.launch {
+                addMealUseCase(state.value.meal)
+            }
+            getRandomFood()
+            resetImageOffset()
+            setCardBorderColorState(Color.Transparent)
+            _rightSwipeCounter.intValue++
+        }
+        //Swipe left
+        else if(state.value.cardOffset.x<-OFFSET_LIMIT && !state.value.isLoading){
+            getRandomFood()
+            resetImageOffset()
+            setCardBorderColorState(Color.Transparent)
+            _leftSwipeCounter.intValue++
+        }
+        else resetImageOffset()
+    }
 
-    fun changeIsCardFlippedState(){
+    private fun changeIsCardFlippedState(){
         _state.value = _state.value.copy(isCardFlipped = !_state.value.isCardFlipped)
     }
 
@@ -92,24 +130,5 @@ class MainViewModel @Inject constructor(
         _state.value = _state.value.copy(cardOffset = Offset(0f, 0f))
     }
 
-    fun checkSwipeBounds() {
-        //Swipe right
-        if(state.value.cardOffset.x>OFFSET_LIMIT && !state.value.isLoading){
-            viewModelScope.launch {
-                addMealUseCase(state.value.meal)
-            }
-            getRandomFood()
-            resetImageOffset()
-            setCardBorderColorState(Color.Transparent)
-            _swipedRight.intValue++
-        }
-        //Swipe left
-        else if(state.value.cardOffset.x<-OFFSET_LIMIT && !state.value.isLoading){
-            getRandomFood()
-            resetImageOffset()
-            setCardBorderColorState(Color.Transparent)
-            _swipedLeft.intValue++
-        }
-        else resetImageOffset()
-    }
+
 }

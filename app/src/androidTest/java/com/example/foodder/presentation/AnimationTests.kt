@@ -67,6 +67,5 @@ class AnimationTests {
         }
         rule.mainClock.advanceTimeBy(1000L)
         rule.onNodeWithTag(TestTags.SPLASH_SCREEN_ANIMATION).assertIsDisplayed()
-
     }
 }

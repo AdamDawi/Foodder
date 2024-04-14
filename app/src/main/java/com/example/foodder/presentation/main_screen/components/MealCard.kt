@@ -35,12 +35,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.foodder.common.Constants
 import com.example.foodder.common.TestTags
+import com.example.foodder.domain.model.Meal
 import com.example.foodder.presentation.main_screen.MainState
 import com.example.foodder.presentation.ui.theme.BlueBlue
 import com.example.foodder.presentation.ui.theme.LocalSpacing
@@ -55,7 +57,7 @@ fun MealCard(
     state: MainState,
     onDrag: (Offset) -> Unit,
     onDragEnd: () -> Unit,
-    onCardClicked: () -> Unit
+    onClicked: () -> Unit
 ) {
     val alphaImage = buildAlphaAnimation(targetValue = if(!state.isCardFlipped) 1f else 0f)
     val alphaDescription = buildAlphaAnimation(targetValue = if(state.isCardFlipped) 1f else 0f)
@@ -89,7 +91,7 @@ fun MealCard(
         //clicking without ripple
         .pointerInput(Unit) {
             detectTapGestures {
-                onCardClicked()
+                onClicked()
             }
         }
     ){
@@ -198,4 +200,47 @@ fun MealCard(
             )
         }
     }
+}
+
+@Preview
+@Composable
+private fun MealCardBackPreview() {
+    MealCard(state = MainState(
+        isCardFlipped = true,
+        meal = Meal(
+            "British",
+            "Seafood",
+            "",
+            "Kedgeree",
+            "https:/www.themealdb.com/images/media/meals/utxqpt1511639216.jpg",
+            mutableListOf(
+                "Smoked Haddock",
+                "Bay Leaves",
+                "Milk",
+                "Eggs",
+                "Parsley",
+                "Coriander",
+                "Vegetable Oil",
+                "Onion",
+                "Coriander",
+                "Curry Powder",
+                "Rice",
+                "Smoked Haddock",
+                "Bay Leaves",
+                "Milk",
+                "Eggs",
+                "Parsley",
+                "Coriander",
+                "Vegetable Oil",
+                "Onion",
+                "Coriander",
+                "Curry Powder",
+                "Rice"
+            )
+        )
+    ),
+        onDrag = {},
+        onDragEnd = {},
+        onClicked = {}
+    )
 }

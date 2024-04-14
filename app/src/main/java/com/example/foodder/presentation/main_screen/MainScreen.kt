@@ -91,7 +91,7 @@ fun MainScreen(
                         .shake(shakeRightAnimation)
                 )
                 AnimatedCounter(
-                    count = viewModel.swipedRight.intValue,
+                    count = viewModel.rightSwipeCounter.intValue,
                     textModifier = Modifier.testTag(TestTags.LIKE_COUNTER)
                 )
             }
@@ -110,7 +110,7 @@ fun MainScreen(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 AnimatedCounter(
-                    count = viewModel.swipedLeft.intValue,
+                    count = viewModel.leftSwipeCounter.intValue,
                     textModifier = Modifier.testTag(TestTags.DELETE_COUNTER)
                 )
                 Icon(
@@ -132,18 +132,16 @@ fun MainScreen(
         MealCard(
             state = viewModel.state.value,
             onDrag = { dragAmount ->
-                viewModel.onCardDrag(dragAmount)
+                viewModel.onEvent(MainEvent.OnCardDrag(dragAmount))
             },
             onDragEnd = {
-                viewModel.checkSwipeBounds()
+                viewModel.onEvent(MainEvent.OnCardDragEnd)
             },
-            onCardClicked = {
-                viewModel.changeIsCardFlippedState()
+            onClicked = {
+                viewModel.onEvent(MainEvent.OnCardClicked)
             },
             modifier = Modifier.testTag(TestTags.MEAL_CARD)
         )
     }
-
-
     }
 }
