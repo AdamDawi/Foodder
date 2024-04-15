@@ -1,5 +1,6 @@
 package com.example.foodder.presentation.favourite_food_screen.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,7 +33,8 @@ fun FoodCard(
     modifier: Modifier = Modifier,
     foodName: String,
     photo: String,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onClick: () -> Unit
 ) {
     val colorMatrix = ColorMatrix()
     colorMatrix.setToSaturation(0.5f)
@@ -41,7 +43,10 @@ fun FoodCard(
         .height(150.dp)
 
     ) {
-        Box(modifier = Modifier.fillMaxSize()){
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .clickable { onClick() }
+        ){
             AsyncImage(model = photo,
                 contentDescription = "food",
                 contentScale = ContentScale.Crop,

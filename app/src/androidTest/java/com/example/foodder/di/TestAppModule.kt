@@ -77,7 +77,8 @@ object TestAppModule {
     fun favouriteFoodScreenUseCases(repository: FoodDbRepository): FavouriteFoodScreenUseCases{
         return FavouriteFoodScreenUseCases(
             deleteMealUseCase = DeleteMealUseCase(repository),
-            getAllMealsUseCase = GetAllMealsUseCase(repository)
+            getAllMealsUseCase = GetAllMealsUseCase(repository),
+            addMealUseCase = AddMealUseCase(repository)
         )
     }
 }

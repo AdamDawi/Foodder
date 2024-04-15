@@ -26,7 +26,7 @@ class AddMealUseCaseTest{
 
         val result: List<MealEntity>
         runBlocking {
-            addMealUseCase(meal)
+            addMealUseCase(meal.toMealEntity())
             result = fakeDbRepository.getAllMeals().first()
         }
         assertThat(result).doesNotContain(meal.toMealEntity())
@@ -42,7 +42,7 @@ class AddMealUseCaseTest{
         )
         val result: List<MealEntity>
         runBlocking {
-            addMealUseCase(meal)
+            addMealUseCase(meal.toMealEntity())
             result = fakeDbRepository.getAllMeals().first()
         }
         assertThat(result).doesNotContain(meal.toMealEntity())
@@ -59,7 +59,7 @@ class AddMealUseCaseTest{
         )
         val result: List<MealEntity>
         runBlocking {
-            addMealUseCase(meal)
+            addMealUseCase(meal.toMealEntity())
             result = fakeDbRepository.getAllMeals().first()
         }
         assertThat(result).doesNotContain(meal.toMealEntity())
@@ -76,7 +76,7 @@ class AddMealUseCaseTest{
         )
         val result: List<MealEntity>
         runBlocking {
-            addMealUseCase(meal)
+            addMealUseCase(meal.toMealEntity())
             result = fakeDbRepository.getAllMeals().first()
         }
         assertThat(result).doesNotContain(meal.toMealEntity())
@@ -92,7 +92,7 @@ class AddMealUseCaseTest{
         )
         val result: List<MealEntity>
         runBlocking {
-            addMealUseCase(meal)
+            addMealUseCase(meal.toMealEntity())
             result = fakeDbRepository.getAllMeals().first()
         }
         assertThat(result).contains(meal.toMealEntity())
