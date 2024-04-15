@@ -1,5 +1,6 @@
 package com.example.foodder.presentation.favourite_food_screen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodder.common.Resource
@@ -29,7 +30,8 @@ class FavouriteFoodViewModel @Inject constructor(
     }
     fun getAllMeals(){
         favouriteFoodScreenUseCases.getAllMealsUseCase().onEach { result ->
-
+            Log.e("result", result.data.toString())
+            Log.e("result msg", result.message.toString())
             when(result){
                 is Resource.Success -> {
                     _state.update { it.copy(meals = result.data ?: emptyList(), isLoading = false) }

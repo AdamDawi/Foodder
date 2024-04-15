@@ -35,13 +35,13 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.foodder.common.TopAppBarView
 import com.example.foodder.presentation.favourite_food_screen.components.FoodCard
 import com.example.foodder.presentation.favourite_food_screen.components.SwipeToDismissBg
+import com.example.foodder.presentation.ui.theme.BackgroundColor
 import com.example.foodder.presentation.util.Screen
 import kotlinx.coroutines.launch
 
@@ -65,7 +65,8 @@ fun FavouriteFoodScreen(
         topBar = {
             TopAppBarView(
                 onBack = { navController.navigateUp() },
-                title = "Favourite food"
+                title = "Favourite food",
+                containerColor = BackgroundColor
             )
         }
     ) {
@@ -77,7 +78,7 @@ fun FavouriteFoodScreen(
 
         LazyColumn(modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(BackgroundColor)
             .padding(it),
             contentPadding = PaddingValues(10.dp)
         ){

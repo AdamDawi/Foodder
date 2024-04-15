@@ -54,6 +54,7 @@ import com.example.foodder.R
 import com.example.foodder.common.TopAppBarView
 import com.example.foodder.presentation.food_detail_screen.components.InformationColumn
 import com.example.foodder.presentation.food_detail_screen.components.IngredientRowSearch
+import com.example.foodder.presentation.ui.theme.BackgroundColor
 import com.example.foodder.presentation.ui.theme.LocalSpacing
 import com.example.foodder.presentation.ui.theme.OrangePumpkin
 import kotlin.math.max
@@ -118,10 +119,11 @@ fun FoodDetailScreen(
                 themeColor = Color.Black
             )
         },
-        containerColor = Color.White
+        containerColor = BackgroundColor
     ) {
         Column(
             modifier = Modifier
+                .background(BackgroundColor)
                 .fillMaxSize()
                 .padding(it),
         ) {

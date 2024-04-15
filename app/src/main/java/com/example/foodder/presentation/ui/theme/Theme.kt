@@ -58,8 +58,10 @@ fun FoodderTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            //bar color like background color of app
+            window.statusBarColor = BackgroundColor.toArgb()
+            //always display dark theme icons on bar
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
         }
     }
 
