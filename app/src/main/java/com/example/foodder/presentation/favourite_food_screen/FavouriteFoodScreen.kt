@@ -26,12 +26,10 @@ import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,7 +49,7 @@ fun FavouriteFoodScreen(
     viewModel: FavouriteFoodViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val state = viewModel.state.collectAsState()
+    val state = viewModel.state
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
     val pullRefreshState = rememberPullRefreshState(
@@ -71,7 +69,6 @@ fun FavouriteFoodScreen(
         }
     ) {
 
-
         Box(modifier = Modifier
             .pullRefresh(pullRefreshState)
         ){
@@ -84,7 +81,6 @@ fun FavouriteFoodScreen(
         ){
             items(state.value.meals, key = { it.id }){ meal ->
                 var show by remember { mutableStateOf(true) }
-                val currentItem by rememberUpdatedState(meal)
                 val dismissState = rememberDismissState(
                     confirmValueChange = {dismiss ->
                         if (dismiss == DismissValue.DismissedToStart){
@@ -135,7 +131,7 @@ fun FavouriteFoodScreen(
                                 viewModel.undoDeleteMeal()
                             }
                         }
-                        viewModel.deleteMeal(currentItem)
+                        viewModel.deleteMeal(meal)
                     }
                 }
             }
