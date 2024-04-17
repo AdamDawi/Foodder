@@ -1,6 +1,7 @@
 package com.example.foodder.common
 
 object TestTags {
+    const val PULL_TO_REFRESH = "PULL_TO_REFRESH"
     const val SPLASH_SCREEN_ANIMATION = "SPLASH_SCREEN_ANIMATION"
     const val MEAL_CARD = "MEAL_CARD"
     const val MEAL_TITLE_ON_CARD = "MEAL_TITLE_ON_CARD"

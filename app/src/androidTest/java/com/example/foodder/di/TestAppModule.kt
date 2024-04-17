@@ -24,7 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-
 @InstallIn(SingletonComponent::class)
 object TestAppModule {
 
@@ -49,7 +48,7 @@ object TestAppModule {
         return Room.inMemoryDatabaseBuilder(
             app,
             FoodDatabase::class.java
-        ).allowMainThreadQueries().build()
+        ).build()
     }
     @Provides
     @Singleton
@@ -81,4 +80,5 @@ object TestAppModule {
             addMealUseCase = AddMealUseCase(repository)
         )
     }
+
 }

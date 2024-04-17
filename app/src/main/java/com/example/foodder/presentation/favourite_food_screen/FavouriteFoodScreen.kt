@@ -33,9 +33,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.foodder.common.TestTags
 import com.example.foodder.common.TopAppBarView
 import com.example.foodder.presentation.favourite_food_screen.components.FoodCard
 import com.example.foodder.presentation.favourite_food_screen.components.SwipeToDismissBg
@@ -71,6 +73,7 @@ fun FavouriteFoodScreen(
 
         Box(modifier = Modifier
             .pullRefresh(pullRefreshState)
+            .testTag(TestTags.PULL_TO_REFRESH)
         ){
 
         LazyColumn(modifier = Modifier

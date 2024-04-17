@@ -3,11 +3,14 @@ package com.example.foodder.presentation
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeLeft
 import androidx.compose.ui.test.swipeRight
 import androidx.navigation.NavType
@@ -71,8 +74,10 @@ class FoodEndToEndTest {
             }
         }
     }
+    //Tests don't work when you run them all at once
+    //TODO make them work together
     @Test
-    fun swipeCardToRight_deleteAfterwards(){
+    fun swipeCardToRight_deleteFromFavListBySwipeAfterwards(){
         composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
         composeRule.onNodeWithContentDescription("List of favourite food").performClick()
         composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
@@ -80,23 +85,46 @@ class FoodEndToEndTest {
         composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
     }
 
-//    @Test
-//    fun swipeCardToRight_checkDetailsAboutFood(){
-//        composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
-//        composeRule.onNodeWithContentDescription("List of favourite food").performClick()
-//        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
-//        val foodNameFavouriteFoodScreen = composeRule.onNodeWithContentDescription("food").fetchSemanticsNode()
-//            .config.getOrNull(Text)?.get(0)?.text
-//        composeRule.onNodeWithContentDescription("food").performClick()
-//        composeRule.waitForIdle()
-//        val foodNameDetailScreen = composeRule.onNodeWithTag(TestTags.DETAIL_SCREEN_FOOD).fetchSemanticsNode()
-//            .config.getOrNull(Text)?.get(0)?.text
-//        assertEquals(foodNameFavouriteFoodScreen, foodNameDetailScreen)
-//    }
+    @Test
+    fun swipeCardToRight_deleteFromFavListByClickAfterwards(){
+        composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
+        composeRule.onNodeWithContentDescription("List of favourite food").performClick()
+        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("Delete food").performClick()
+        composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
+    }
+
+    @Test
+    fun swipeCardToRight_deleteFromFavListByClickAfterwards_andUndoDelete_shouldNotDisplayFood(){
+        composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
+        composeRule.onNodeWithContentDescription("List of favourite food").performClick()
+        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("Delete food").performClick()
+        composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
+        composeRule.onNodeWithText("Undo").performClick()
+        composeRule.onNodeWithContentDescription("food").assertIsNotDisplayed()
+    }
+
+    @Test
+    fun swipeCardToRight_deleteFromFavListByClickAfterwards_andUndoDelete_refreshFoodList_shouldDisplayFood(){
+        composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
+        composeRule.onNodeWithContentDescription("List of favourite food").performClick()
+        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
+        composeRule.onNodeWithContentDescription("Delete food").performClick()
+        composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
+        composeRule.onNodeWithText("Undo").performClick()
+        composeRule.onNodeWithContentDescription("food").assertIsNotDisplayed()
+        composeRule.onNodeWithTag(TestTags.PULL_TO_REFRESH).swipeDown()
+        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
+    }
+
+    private fun SemanticsNodeInteraction.swipeDown(){
+        this.performTouchInput { swipeDown(centerY, centerY + centerY, durationMillis= 500) }
+    }
     private fun SemanticsNodeInteraction.swipeRight(){
-        this.performTouchInput { swipeRight(centerX, centerX + centerX) }
+        this.performTouchInput { swipeRight(centerX, centerX + centerX, durationMillis= 500) }
     }
     private fun SemanticsNodeInteraction.swipeLeft(){
-        this.performTouchInput { swipeLeft(centerX, centerX - centerX) }
+        this.performTouchInput { swipeLeft(centerX, -centerX - centerX, durationMillis= 500) }
     }
 }
