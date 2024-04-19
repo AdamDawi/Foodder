@@ -25,7 +25,7 @@ fun SwipeToDismissBg(
     modifier: Modifier = Modifier,
     dismissState: DismissState
 ) {
-    val color = buildColorAnimation(dismissState = dismissState)
+    val color = buildColorAnimationRedToGray(dismissState = dismissState)
     val scale = buildSizeAnimation(dismissState = dismissState)
     Box(modifier = modifier
         .fillMaxSize()

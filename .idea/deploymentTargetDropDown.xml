@@ -42,12 +42,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\adamd\.android\avd\Pixel_4_API_31_-_Android_12.avd" />
+                  <value value="C:\Users\adamd\.android\avd\Pixel_7_API_31.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-16T04:57:41.159268500Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-04-19T07:35:47.687303Z" />
         </State>
       </entry>
       <entry key="swipeCardToRight_deleteFromFavListByClickAfterwards()">

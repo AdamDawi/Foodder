@@ -40,6 +40,7 @@ import androidx.navigation.NavController
 import com.example.foodder.common.TestTags
 import com.example.foodder.common.TopAppBarView
 import com.example.foodder.presentation.favourite_food_screen.components.FoodCard
+import com.example.foodder.presentation.favourite_food_screen.components.SortSectionRow
 import com.example.foodder.presentation.favourite_food_screen.components.SwipeToDismissBg
 import com.example.foodder.presentation.ui.theme.BackgroundColor
 import com.example.foodder.presentation.util.Screen
@@ -69,19 +70,21 @@ fun FavouriteFoodScreen(
                 containerColor = BackgroundColor
             )
         }
-    ) {
-
+    ) { scaffoldPadding ->
         Box(modifier = Modifier
             .pullRefresh(pullRefreshState)
             .testTag(TestTags.PULL_TO_REFRESH)
-        ){
-
-        LazyColumn(modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundColor)
-            .padding(it),
-            contentPadding = PaddingValues(10.dp)
+            .padding(scaffoldPadding)
         ){
+        LazyColumn(modifier = Modifier
+            .background(BackgroundColor)
+            .fillMaxSize(),
+            contentPadding = PaddingValues(10.dp, 0.dp, 10.dp, 10.dp)
+        ){
+            item {
+                SortSectionRow()
+            }
             items(state.value.meals, key = { it.id }){ meal ->
                 var show by remember { mutableStateOf(true) }
                 val dismissState = rememberDismissState(
