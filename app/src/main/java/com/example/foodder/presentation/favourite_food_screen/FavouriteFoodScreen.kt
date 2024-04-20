@@ -56,8 +56,8 @@ fun FavouriteFoodScreen(
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = state.value.isLoading,
-        onRefresh = { viewModel.getAllMeals()}
+        refreshing = state.value.isRefreshing,
+        onRefresh = { viewModel.onEvent(FavouriteFoodEvent.GetAllMeals(viewModel.foodOrder.value))}
     )
     Scaffold(
         snackbarHost = {
@@ -83,7 +83,7 @@ fun FavouriteFoodScreen(
             contentPadding = PaddingValues(10.dp, 0.dp, 10.dp, 10.dp)
         ){
             item {
-                SortSectionRow()
+                SortSectionRow(viewModel = viewModel)
             }
             items(state.value.meals, key = { it.id }){ meal ->
                 var show by remember { mutableStateOf(true) }
@@ -134,16 +134,16 @@ fun FavouriteFoodScreen(
                             )
 
                             if(result == SnackbarResult.ActionPerformed){
-                                viewModel.undoDeleteMeal()
+                                viewModel.onEvent(event = FavouriteFoodEvent.RestoreMeal)
                             }
                         }
-                        viewModel.deleteMeal(meal)
+                        viewModel.onEvent(event = FavouriteFoodEvent.DeleteMeal(meal))
                     }
                 }
             }
         }
             PullRefreshIndicator(
-                refreshing = state.value.isLoading,
+                refreshing = state.value.isRefreshing,
                 state = pullRefreshState,
                 Modifier.align(Alignment.TopCenter)
             )
