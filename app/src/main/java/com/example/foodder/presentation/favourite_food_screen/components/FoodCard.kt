@@ -41,7 +41,6 @@ fun FoodCard(
     Card(modifier = modifier
         .fillMaxWidth()
         .height(150.dp)
-
     ) {
         Box(modifier = Modifier
             .fillMaxSize()
@@ -68,14 +67,17 @@ fun FoodCard(
                 )
             IconButton(
                 onClick = {onDelete()},
-                modifier = Modifier.align(Alignment.TopEnd)
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(6.dp)
+                    .size(16.dp)
             ){
                 Icon(
                     painter = painterResource(id = R.drawable.ic_x),
                     contentDescription = "Delete food",
                     tint = RedPink,
                     modifier = Modifier
-                        .size(20.dp)
+
                 )
             }
         }

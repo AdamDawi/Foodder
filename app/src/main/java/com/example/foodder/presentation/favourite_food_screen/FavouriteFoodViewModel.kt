@@ -32,6 +32,7 @@ class FavouriteFoodViewModel @Inject constructor(
 
     init {
         getAllMeals(FoodOrder.Date(OrderType.Ascending))
+        getCategories()
     }
     fun onEvent(event: FavouriteFoodEvent){
         when(event){
@@ -39,7 +40,7 @@ class FavouriteFoodViewModel @Inject constructor(
                 //when data is the same is not worth for loading to UI
                 if(isDataChanged) {
                     isDataChanged = false
-                    _state.value = _state.value.copy(isRefreshing = true)
+                    _state.value = _state.value.copy(isRefreshingDb = true)
                     getAllMeals(event.foodOrder)
                 }
             }
@@ -60,17 +61,34 @@ class FavouriteFoodViewModel @Inject constructor(
         }
     }
 
+    private fun getCategories(){
+        favouriteFoodScreenUseCases.getCategoriesUseCase().onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    _state.value = _state.value.copy(
+                        categories = result.data ?: emptyList()
+                    )
+                }
+                is Resource.Error -> {
+                    _state.value = _state.value.copy(errorMessageApi = result.message ?: "An unexpected error", isLoadingApi = false)
+                }
+                is Resource.Loading -> {
+                    _state.value = _state.value.copy(isLoadingApi = true)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
     private fun getAllMeals(foodOrder: FoodOrder) {
             favouriteFoodScreenUseCases.getAllMealsUseCase(foodOrder).onEach { result ->
                 when(result){
                     is Resource.Success -> {
-                        _state.value = _state.value.copy(meals = result.data?: emptyList(), isLoading = false, isRefreshing = false)
+                        _state.value = _state.value.copy(meals = result.data?: emptyList(), isLoadingDb = false, isRefreshingDb = false)
                     }
                     is Resource.Error -> {
-                        _state.value = _state.value.copy(errorMessage = result.message ?: "An unexpected error")
+                        _state.value = _state.value.copy(errorMessageDb = result.message ?: "An unexpected error")
                     }
                     is Resource.Loading -> {
-                        _state.value = _state.value.copy(isLoading = true)
+                        _state.value = _state.value.copy(isLoadingDb = true)
                     }
                 }
             }.launchIn(viewModelScope)

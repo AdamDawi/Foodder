@@ -14,6 +14,7 @@ import com.example.foodder.domain.use_case.AddMealUseCase
 import com.example.foodder.domain.use_case.DeleteMealUseCase
 import com.example.foodder.domain.use_case.FavouriteFoodScreenUseCases
 import com.example.foodder.domain.use_case.GetAllMealsUseCase
+import com.example.foodder.domain.use_case.GetCategoriesUseCase
 import com.example.foodder.domain.use_case.GetMealByIdUseCase
 import com.example.foodder.domain.use_case.GetRandomFoodUseCase
 import dagger.Module
@@ -75,13 +76,20 @@ object AppModule {
     fun provideGetMealByIdUseCase(repository: FoodDbRepository): GetMealByIdUseCase{
         return GetMealByIdUseCase(repository = repository)
     }
+
     @Provides
     @Singleton
-    fun favouriteFoodScreenUseCases(repository: FoodDbRepository): FavouriteFoodScreenUseCases{
+    fun provideGetCategories(repository: FoodApiRepository): GetCategoriesUseCase{
+        return GetCategoriesUseCase(repository = repository)
+    }
+    @Provides
+    @Singleton
+    fun favouriteFoodScreenUseCases(repositoryDb: FoodDbRepository, repositoryApi: FoodApiRepository): FavouriteFoodScreenUseCases{
         return FavouriteFoodScreenUseCases(
-            deleteMealUseCase = DeleteMealUseCase(repository),
-            getAllMealsUseCase = GetAllMealsUseCase(repository),
-            addMealUseCase = AddMealUseCase(repository)
+            deleteMealUseCase = DeleteMealUseCase(repositoryDb),
+            getAllMealsUseCase = GetAllMealsUseCase(repositoryDb),
+            addMealUseCase = AddMealUseCase(repositoryDb),
+            getCategoriesUseCase = GetCategoriesUseCase(repositoryApi)
         )
     }
 }

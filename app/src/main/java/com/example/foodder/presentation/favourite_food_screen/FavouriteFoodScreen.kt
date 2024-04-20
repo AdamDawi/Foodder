@@ -56,7 +56,7 @@ fun FavouriteFoodScreen(
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = state.value.isRefreshing,
+        refreshing = state.value.isRefreshingDb,
         onRefresh = { viewModel.onEvent(FavouriteFoodEvent.GetAllMeals(viewModel.foodOrder.value))}
     )
     Scaffold(
@@ -143,7 +143,7 @@ fun FavouriteFoodScreen(
             }
         }
             PullRefreshIndicator(
-                refreshing = state.value.isRefreshing,
+                refreshing = state.value.isRefreshingDb,
                 state = pullRefreshState,
                 Modifier.align(Alignment.TopCenter)
             )

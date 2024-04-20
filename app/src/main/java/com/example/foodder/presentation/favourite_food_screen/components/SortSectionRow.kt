@@ -1,17 +1,23 @@
 package com.example.foodder.presentation.favourite_food_screen.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -28,6 +35,9 @@ import androidx.compose.ui.unit.sp
 import com.example.foodder.presentation.favourite_food_screen.FavouriteFoodEvent
 import com.example.foodder.presentation.favourite_food_screen.FavouriteFoodViewModel
 import com.example.foodder.presentation.favourite_food_screen.common.Items
+import com.example.foodder.presentation.ui.theme.BackgroundColor
+import com.example.foodder.presentation.ui.theme.BlueBlue
+import com.example.foodder.presentation.ui.theme.LightBlue
 
 @Composable
 fun SortSectionRow(
@@ -84,14 +94,37 @@ fun SortSectionRow(
                     .rotate(rotationFilter),
                 tint = colorFilter
             )
-            DropDownCustomMenu(
-                isContextMenuVisible = isFilterMenuVisible,
-                selectedItem = selectedFilterItem,
-                onItemClick = { selectedFilterItem = it },
-                onDismiss = { isFilterMenuVisible = false },
-                items = Items.filterItems,
-                onEventOrder = { viewModel.onEvent(FavouriteFoodEvent.Order(it.foodOrder)) }
-            )
+            DropdownMenu(
+                modifier = modifier
+                    .width(220.dp)
+                    .heightIn(max = 300.dp)
+                    .background(BackgroundColor),
+                expanded = isFilterMenuVisible,
+                onDismissRequest = { isFilterMenuVisible = false }
+            ) {
+                for (el in viewModel.state.value.categories) {
+                    key(el.id) {
+                        val isSelected = el.id == selectedFilterItem
+                        DropdownMenuItem(
+                            modifier = Modifier
+                                .padding(start = 6.dp, end = 6.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (isSelected) LightBlue else BackgroundColor),
+                            text = {
+                                Text(
+                                    text = viewModel.state.value.categories[el.id].strCategory,
+                                    color = if (isSelected) BlueBlue else Color.Black,
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                )
+                            },
+                            onClick = {
+                                selectedFilterItem = el.id
+                                //viewModel.onEvent(FavouriteFoodEvent.Order(it.foodOrder))
+                            }
+                        )
+                    }
+                }
+            }
         }
         Row(
             modifier = Modifier
