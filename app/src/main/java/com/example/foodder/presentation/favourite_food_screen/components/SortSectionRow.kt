@@ -102,9 +102,9 @@ fun SortSectionRow(
                 expanded = isFilterMenuVisible,
                 onDismissRequest = { isFilterMenuVisible = false }
             ) {
-                for (el in viewModel.state.value.categories) {
-                    key(el.id) {
-                        val isSelected = el.id == selectedFilterItem
+                for (category in viewModel.state.value.categories) {
+                    key(category.id) {
+                        val isSelected = category.id == selectedFilterItem
                         DropdownMenuItem(
                             modifier = Modifier
                                 .padding(start = 6.dp, end = 6.dp)
@@ -112,14 +112,14 @@ fun SortSectionRow(
                                 .background(if (isSelected) LightBlue else BackgroundColor),
                             text = {
                                 Text(
-                                    text = viewModel.state.value.categories[el.id].strCategory,
+                                    text = viewModel.state.value.categories[category.id].strCategory,
                                     color = if (isSelected) BlueBlue else Color.Black,
                                     fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
                                 )
                             },
                             onClick = {
-                                selectedFilterItem = el.id
-                                //viewModel.onEvent(FavouriteFoodEvent.Order(it.foodOrder))
+                                selectedFilterItem = category.id
+                                viewModel.onEvent(FavouriteFoodEvent.Filter(category.strCategory))
                             }
                         )
                     }

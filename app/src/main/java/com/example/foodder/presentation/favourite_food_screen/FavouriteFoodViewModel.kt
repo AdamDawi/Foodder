@@ -24,14 +24,14 @@ class FavouriteFoodViewModel @Inject constructor(
     private val _state = mutableStateOf(FavouriteFoodState())
     val state: MutableState<FavouriteFoodState> = _state
 
-    private val _foodOrder = mutableStateOf<FoodOrder>(FoodOrder.Date(OrderType.Ascending))
-    val foodOrder: MutableState<FoodOrder> = _foodOrder
+    private var foodOrder: FoodOrder = FoodOrder.Date(OrderType.Ascending)
+    private var foodFilter = "Default"
 
     private var lastDeletedMeal: MealEntity = MealEntity()
     private var isDataChanged: Boolean = true
 
     init {
-        getAllMeals(FoodOrder.Date(OrderType.Ascending))
+        getAllMeals()
         getCategories()
     }
     fun onEvent(event: FavouriteFoodEvent){
@@ -41,16 +41,23 @@ class FavouriteFoodViewModel @Inject constructor(
                 if(isDataChanged) {
                     isDataChanged = false
                     _state.value = _state.value.copy(isRefreshingDb = true)
-                    getAllMeals(event.foodOrder)
+                    getAllMeals()
                 }
             }
-            is FavouriteFoodEvent.Order ->{
-                if(_foodOrder.value::class == event.foodOrder::class &&
-                    foodOrder.value.orderType == event.foodOrder.orderType){
+            is FavouriteFoodEvent.Filter ->{
+                if(foodFilter == event.category){
                     return
                 }
-                _foodOrder.value = event.foodOrder
-                getAllMeals(event.foodOrder)
+                foodFilter = event.category
+                getAllMeals()
+            }
+            is FavouriteFoodEvent.Order ->{
+                if(foodOrder::class == event.foodOrder::class &&
+                    foodOrder.orderType == event.foodOrder.orderType){
+                    return
+                }
+                foodOrder = event.foodOrder
+                getAllMeals()
             }
             is FavouriteFoodEvent.DeleteMeal ->{
                 deleteMeal(event.mealEntity)
@@ -78,11 +85,11 @@ class FavouriteFoodViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
     }
-    private fun getAllMeals(foodOrder: FoodOrder) {
-            favouriteFoodScreenUseCases.getAllMealsUseCase(foodOrder).onEach { result ->
+    private fun getAllMeals() {
+            favouriteFoodScreenUseCases.getAllMealsUseCase(foodOrder, foodFilter).onEach { result ->
                 when(result){
                     is Resource.Success -> {
-                        _state.value = _state.value.copy(meals = result.data?: emptyList(), isLoadingDb = false, isRefreshingDb = false)
+                        _state.value = _state.value.copy(meals = result.data ?: emptyList(), isLoadingDb = false, isRefreshingDb = false)
                     }
                     is Resource.Error -> {
                         _state.value = _state.value.copy(errorMessageDb = result.message ?: "An unexpected error")

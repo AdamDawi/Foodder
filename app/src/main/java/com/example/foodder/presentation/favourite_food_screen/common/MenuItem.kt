@@ -16,10 +16,6 @@ object Items{
         MenuItem(2, "Name (a-z)", FoodOrder.Name(OrderType.Ascending)),
         MenuItem(3, "Name (z-a)", FoodOrder.Name(OrderType.Descending))
     )
-    val filterItems: List<MenuItem> = listOf(
-        MenuItem(0, "Default", FoodOrder.Name(OrderType.Ascending)),
-        MenuItem(1, "Category", FoodOrder.Name(OrderType.Ascending))
-    )
 }
 
 

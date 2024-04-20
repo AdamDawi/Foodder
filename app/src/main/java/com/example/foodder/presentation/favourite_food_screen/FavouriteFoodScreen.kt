@@ -57,7 +57,7 @@ fun FavouriteFoodScreen(
     val snackBarHostState = remember { SnackbarHostState() }
     val pullRefreshState = rememberPullRefreshState(
         refreshing = state.value.isRefreshingDb,
-        onRefresh = { viewModel.onEvent(FavouriteFoodEvent.GetAllMeals(viewModel.foodOrder.value))}
+        onRefresh = { viewModel.onEvent(FavouriteFoodEvent.GetAllMeals)}
     )
     Scaffold(
         snackbarHost = {

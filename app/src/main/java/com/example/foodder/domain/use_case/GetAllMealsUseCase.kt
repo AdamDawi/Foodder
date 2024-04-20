@@ -15,7 +15,8 @@ class GetAllMealsUseCase @Inject constructor(
     private val repository: FoodDbRepository
 ) {
     operator fun invoke(
-        foodOrder: FoodOrder = FoodOrder.Date(OrderType.Ascending)
+        foodOrder: FoodOrder = FoodOrder.Date(OrderType.Ascending),
+        filter: String
     ): Flow<Resource<List<MealEntity>>> = flow{
         try {
             emit(Resource.Loading())
@@ -28,7 +29,6 @@ class GetAllMealsUseCase @Inject constructor(
                             is FoodOrder.Name -> this.sortedBy { it.strMeal }
                         }
                     }
-
                     is OrderType.Descending ->{
                         when(foodOrder){
                             is FoodOrder.Date -> this.reversed()
@@ -37,6 +37,7 @@ class GetAllMealsUseCase @Inject constructor(
                     }
                 }
             }
+            if(filter != "Default") meals = meals.filter { it.strCategory == filter }
             emit(Resource.Success(meals))
         }catch (e: IOException){
             emit(Resource.Error("Couldn't reach database."))

@@ -50,13 +50,13 @@
           <timeTargetWasSelectedWithDropDown value="2024-04-20T11:08:46.530565200Z" />
         </State>
       </entry>
-      <entry key="swipeCardToRight_deleteFromFavListByClickAfterwards()">
+      <entry key="swipeCardToRight_deleteFromFavListAfterwards()">
         <State />
       </entry>
-      <entry key="swipeCardToRight_deleteFromFavListByClickAfterwards_andUndoDelete_refreshFoodList_shouldDisplayFood()">
+      <entry key="swipeCardToRight_deleteFromFavListAfterwards_andUndoDelete_refreshFoodList_shouldDisplayFood()">
         <State />
       </entry>
-      <entry key="swipeCardToRight_deleteFromFavListBySwipeAfterwards()">
+      <entry key="swipeCardToRight_deleteFromFavListAfterwards_andUndoDelete_shouldNotDisplayFood()">
         <State />
       </entry>
     </value>

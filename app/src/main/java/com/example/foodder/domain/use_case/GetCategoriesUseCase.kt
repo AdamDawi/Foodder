@@ -15,7 +15,9 @@ class GetCategoriesUseCase @Inject constructor(
     operator fun invoke(): Flow<Resource<List<Category>>> = flow{
         try {
             emit(Resource.Loading())
-            val categories = repository.getCategories().categories.map { it.toCategory() }
+            val categories = repository.getCategories().categories.map { it.toCategory() }.toMutableList()
+            categories.add(Category(0, "Default"))
+            categories.sortBy { it.id }
             emit(Resource.Success(categories))
         }catch (e: IOException){
             emit(Resource.Error("Couldn't reach server. Check your internet connection."))

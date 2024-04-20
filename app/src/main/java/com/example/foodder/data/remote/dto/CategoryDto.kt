@@ -10,5 +10,5 @@ data class CategoryDto(
 )
 
 fun CategoryDto.toCategory(): Category{
-    return Category(id = idCategory.toInt()-1, strCategory = strCategory)
+    return Category(id = idCategory.toInt(), strCategory = strCategory)
 }

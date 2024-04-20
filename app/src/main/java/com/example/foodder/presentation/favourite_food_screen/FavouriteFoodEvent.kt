@@ -7,5 +7,6 @@ sealed class FavouriteFoodEvent {
     data class Order(val foodOrder: FoodOrder): FavouriteFoodEvent()
     data class DeleteMeal(val mealEntity: MealEntity): FavouriteFoodEvent()
     data object RestoreMeal: FavouriteFoodEvent()
-    data class GetAllMeals(val foodOrder: FoodOrder): FavouriteFoodEvent()
+    data object GetAllMeals : FavouriteFoodEvent()
+    data class Filter(val category: String): FavouriteFoodEvent()
 }
