@@ -77,7 +77,7 @@ class FoodEndToEndTest {
     //Tests don't work when you run them all at once
     //TODO make them work together
     @Test
-    fun swipeCardToRight_deleteFromFavListBySwipeAfterwards(){
+    fun swipeCardToRight_deleteFromFavListAfterwards(){
         composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
         composeRule.onNodeWithContentDescription("List of favourite food").performClick()
         composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
@@ -85,32 +85,24 @@ class FoodEndToEndTest {
         composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
     }
 
-    @Test
-    fun swipeCardToRight_deleteFromFavListByClickAfterwards(){
-        composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
-        composeRule.onNodeWithContentDescription("List of favourite food").performClick()
-        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
-        composeRule.onNodeWithContentDescription("Delete food").performClick()
-        composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
-    }
 
     @Test
-    fun swipeCardToRight_deleteFromFavListByClickAfterwards_andUndoDelete_shouldNotDisplayFood(){
+    fun swipeCardToRight_deleteFromFavListAfterwards_andUndoDelete_shouldNotDisplayFood(){
         composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
         composeRule.onNodeWithContentDescription("List of favourite food").performClick()
         composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
-        composeRule.onNodeWithContentDescription("Delete food").performClick()
+        composeRule.onNodeWithContentDescription("food").swipeLeft()
         composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
         composeRule.onNodeWithText("Undo").performClick()
         composeRule.onNodeWithContentDescription("food").assertIsNotDisplayed()
     }
 
     @Test
-    fun swipeCardToRight_deleteFromFavListByClickAfterwards_andUndoDelete_refreshFoodList_shouldDisplayFood(){
+    fun swipeCardToRight_deleteFromFavListAfterwards_andUndoDelete_refreshFoodList_shouldDisplayFood(){
         composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
         composeRule.onNodeWithContentDescription("List of favourite food").performClick()
         composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
-        composeRule.onNodeWithContentDescription("Delete food").performClick()
+        composeRule.onNodeWithContentDescription("food").swipeLeft()
         composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
         composeRule.onNodeWithText("Undo").performClick()
         composeRule.onNodeWithContentDescription("food").assertIsNotDisplayed()

@@ -117,8 +117,7 @@ fun FavouriteFoodScreen(
                                 )
                             },
                                 foodName = meal.strMeal,
-                                photo = meal.strMealThumb,
-                                onDelete = {show=false}
+                                photo = meal.strMealThumb
                             )
                         }
                     )
