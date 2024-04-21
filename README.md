@@ -77,7 +77,7 @@ git clone https://github.com/AdamDawi/Foodder
 ## Animations:
 !["Splash Screen Animation"](gifs/splash_screen.gif) !["Custom Layout Animation"](gifs/custom_layout.gif)
 !["Flip Animation"](gifs/flip.gif) !["Drag Animation"](gifs/drag.gif)  
-!["Drop Menu Animation"](gifs/drop_menu.gif)
+!["Drop Menu Animation"](gifs/drop_menu.gif) !["Swipe to delete animation"](gifs/swipe_to_delete.gif)
 
 ## Requirements
 Android 10 (API level 25) or later📱
