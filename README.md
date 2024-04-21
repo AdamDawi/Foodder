@@ -2,11 +2,11 @@
 
 Embark on a culinary adventure with Foodder, an innovative app that transforms food discovery into an engaging and personalized experience. Powered by the latest technologies, Foodder seamlessly blends Tinder-like swiping mechanics with a rich set of features to cater to every foodie's delight.
 
-## Features
+## ⭐️Features
 ### Main Screen 
 - **Swipe to Discover:** Swipe through a curated selection of dishes, effortlessly discovering new favorites.
   
-- **3D Card Flip Animation:** Experience a [3D card flip animation](#animations) to reveal a dish's detailed information.
+- **3D Card Flip Animation:** Experience a [3D card flip animation](#animations) to reveal a dish's detailed information.✨
 
 - **Splash Screen Animation:** A fancy [3D animation](#animations) welcomes you when you first open the app.
 
@@ -17,7 +17,7 @@ Embark on a culinary adventure with Foodder, an innovative app that transforms f
 
 - **Swipe-to-Dismiss Removal:** Seamlessly remove dishes from your 'Liked' list with a simple [swipe to left action](#animations).
 
-- **Undo Removal:** Easily recover accidentally removed dishes using the undo function.
+- **Undo Removal:** Easily recover accidentally removed dishes using the undo function.⏪
 
 - **Pull-to-Refresh:** Refresh your 'Liked' list with a simple pull-down gesture, ensuring you're always up-to-date.
 
@@ -28,8 +28,8 @@ Embark on a culinary adventure with Foodder, an innovative app that transforms f
 
 - **Preparation Instruction:** Step-by-step instruction guiding users through the cooking process with ease.
 
-## Technologies
-### App:
+## ⚙️Technologies
+### 📱App:
 - **Jetpack Compose:** Leverages Jetpack Compose's declarative UI toolkit to create a modern and responsive interface.🎨
 
 - **Clean MVVM Architecture:** Separating the project into layers with repositories and uses cases, using view model functionalities.🔧
@@ -46,7 +46,7 @@ Embark on a culinary adventure with Foodder, an innovative app that transforms f
 
 - **Material Designs:** Used to create the app's intuitive and visually appealing interface (scaffold, drop down menu, swipe to dismiss, snackbar, pull to refresh, card)
 
-### Testing:
+### ✅Testing:
 - **JUnit4:** Utilized to write and execute unit tests.
 
 - **Kotlin Coroutines Test:** Used to test asynchronous code that utilizes coroutines.
