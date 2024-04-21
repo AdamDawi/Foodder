@@ -6,23 +6,23 @@ Embark on a culinary adventure with Foodder, an innovative app that transforms f
 ### Main Screen 
 - **Swipe to Discover:** Swipe through a curated selection of dishes, effortlessly discovering new favorites.
   
-- **3D Card Flip Animation:** Experience a 3D card flip animation to reveal a dish's detailed information.
+- **3D Card Flip Animation:** Experience a [3D card flip animation](#animations) to reveal a dish's detailed information.
 
-- **Splash Screen Animation:** A fancy 3D animation welcomes you when you first open the app.
+- **Splash Screen Animation:** A fancy [3D animation](#animations) welcomes you when you first open the app.
 
 ### Favourite food list
 - **Save Your Favorites:** Build your personalized wishlist by adding delectable dishes to your 'Liked' list.
 
 - **Searching:** Use filters to search for specific types of food or sort your list by name or date added.
 
-- **Swipe-to-Dismiss Removal:** Seamlessly remove dishes from your 'Liked' list with a simple swipe to left action.
+- **Swipe-to-Dismiss Removal:** Seamlessly remove dishes from your 'Liked' list with a simple [swipe to left action](#animations).
 
 - **Undo Removal:** Easily recover accidentally removed dishes using the undo function.
 
 - **Pull-to-Refresh:** Refresh your 'Liked' list with a simple pull-down gesture, ensuring you're always up-to-date.
 
 ### Food details
-- **Dynamic Layout with Scrolling:** As you scroll, an image and information of the dish animates scale and moving to the header of the screen. The image seamlessly adapts to different screen sizes and orientations, ensuring an optimal viewing experience.
+- **[Dynamic Layout with Scrolling:](#animations)** As you scroll, an image and information of the dish animates scale and moving to the header of the screen. The image seamlessly adapts to different screen sizes and orientations, ensuring an optimal viewing experience.
 
 - **Detailed Ingredients List:** Each ingredient can be clicked on to be directed to a web search.
 
@@ -74,8 +74,10 @@ git clone https://github.com/AdamDawi/Foodder
 ![55](https://github.com/AdamDawi/Foodder/assets/49430055/91880533-6e0e-479d-8ae2-095621c47ede)
 ![66](https://github.com/AdamDawi/Foodder/assets/49430055/343cf3e6-6025-4479-b769-83523e2dfc7e)
 
-## Video from app:
-
+## Animations:
+!["Splash Screen Animation"](gifs/splash_screen.gif) !["Custom Layout Animation"](gifs/custom_layout.gif)
+!["Flip Animation"](gifs/flip.gif) !["Drag Animation"](gifs/drag.gif)  
+!["Drop Menu Animation"](gifs/drop_menu.gif)
 
 ## Requirements
 Android 10 (API level 25) or later📱
