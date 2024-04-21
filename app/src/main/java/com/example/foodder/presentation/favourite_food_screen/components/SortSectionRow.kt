@@ -152,14 +152,37 @@ fun SortSectionRow(
                     .rotate(rotationSort),
                 tint = colorSort
             )
-            DropDownCustomMenu(
-                isContextMenuVisible = isSortMenuVisible,
-                selectedItem = selectedSortItem,
-                onItemClick = { selectedSortItem = it },
-                onDismiss = { isSortMenuVisible = false },
-                items = Items.sortItems,
-                onEventOrder = { viewModel.onEvent(FavouriteFoodEvent.Order(it.foodOrder)) }
-            )
+
+            DropdownMenu(
+                modifier = modifier
+                    .width(220.dp)
+                    .background(BackgroundColor),
+                expanded = isSortMenuVisible,
+                onDismissRequest = { isSortMenuVisible = false }
+            ) {
+                for (el in Items.sortItems) {
+                    key(el.id) {
+                        val isSelected = el.id == selectedSortItem
+                        DropdownMenuItem(
+                            modifier = Modifier
+                                .padding(start = 6.dp, end = 6.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (isSelected) LightBlue else BackgroundColor),
+                            text = {
+                                Text(
+                                    text = Items.sortItems[el.id].name,
+                                    color = if (isSelected) BlueBlue else Color.Black,
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                                )
+                            },
+                            onClick = {
+                                selectedSortItem = el.id
+                                viewModel.onEvent(FavouriteFoodEvent.Order(el.order))
+                            }
+                        )
+                    }
+                }
+            }
         }
     }
 }

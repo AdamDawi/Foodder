@@ -3,6 +3,7 @@ package com.example.foodder.presentation.favourite_food_screen
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -46,7 +47,9 @@ import com.example.foodder.presentation.ui.theme.BackgroundColor
 import com.example.foodder.presentation.util.Screen
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
+    ExperimentalFoundationApi::class
+)
 @Composable
 fun FavouriteFoodScreen(
     viewModel: FavouriteFoodViewModel = hiltViewModel(),
@@ -101,7 +104,8 @@ fun FavouriteFoodScreen(
                 AnimatedVisibility(
                     show,exit = fadeOut(spring())
                 ) {
-                    SwipeToDismiss(state = dismissState,
+                    SwipeToDismiss(modifier = Modifier.animateItemPlacement(),
+                        state = dismissState,
                         background = {
                             SwipeToDismissBg(dismissState = dismissState)
                         },
