@@ -74,8 +74,12 @@ git clone https://github.com/AdamDawi/Foodder
 ![55](https://github.com/AdamDawi/Foodder/assets/49430055/91880533-6e0e-479d-8ae2-095621c47ede)
 ![66](https://github.com/AdamDawi/Foodder/assets/49430055/343cf3e6-6025-4479-b769-83523e2dfc7e)
 
-## Video from app:
-
+## Animations:
+<img src="gifs/custom_layout.gif"/>
+<img src="gifs/flip.gif"/>
+<img src="gifs/drag.gif"/>
+<img src="gifs/drop_menu.gif"/>
+<img src="gifs/splash_screen.gif"/>
 
 ## Requirements
 Android 10 (API level 25) or later📱
