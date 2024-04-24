@@ -2,6 +2,7 @@ package com.example.foodder.presentation.favourite_food_screen.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -69,31 +70,34 @@ fun SortSectionRow(
         modifier = modifier
             .fillMaxWidth()
     ) {
-        Row(
-            modifier = Modifier
+        Box{
+            Row(modifier = Modifier
                 .padding(8.dp)
                 .pointerInput(true) {
                     detectTapGestures(onTap = {
                         isFilterMenuVisible = true
                     })
                 },
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Filters",
-                fontWeight = FontWeight.Bold,
-                color = colorFilter,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(start = 4.dp)
-            )
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = Icons.Default.KeyboardArrowDown.name,
-                modifier = Modifier
-                    .size(32.dp)
-                    .rotate(rotationFilter),
-                tint = colorFilter
-            )
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Text(
+                    text = "Filters",
+                    fontWeight = FontWeight.Bold,
+                    color = colorFilter,
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowDown,
+                    contentDescription = Icons.Default.KeyboardArrowDown.name,
+                    modifier = Modifier
+                        .size(32.dp)
+                        .rotate(rotationFilter),
+                    tint = colorFilter
+                )
+            }
+
             DropdownMenu(
                 modifier = modifier
                     .width(220.dp)
@@ -105,6 +109,7 @@ fun SortSectionRow(
                 for (category in viewModel.state.value.categories) {
                     key(category.id) {
                         val isSelected = category.id == selectedFilterItem
+
                         DropdownMenuItem(
                             modifier = Modifier
                                 .padding(start = 6.dp, end = 6.dp)
@@ -126,33 +131,34 @@ fun SortSectionRow(
                 }
             }
         }
-        Row(
-            modifier = Modifier
-                .padding(8.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .pointerInput(true) {
-                    detectTapGestures(onTap = {
-                        isSortMenuVisible = true
-                    })
-                },
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Sort by",
-                fontWeight = FontWeight.Bold,
-                color = colorSort,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(start = 4.dp)
-            )
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowDown,
-                contentDescription = Icons.Default.KeyboardArrowDown.name,
+        Box{
+            Row (
                 modifier = Modifier
-                    .size(32.dp)
-                    .rotate(rotationSort),
-                tint = colorSort
-            )
-
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .pointerInput(true) {
+                        detectTapGestures(onTap = {
+                            isSortMenuVisible = true
+                        })
+                    },
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Sort by",
+                    fontWeight = FontWeight.Bold,
+                    color = colorSort,
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowDown,
+                    contentDescription = Icons.Default.KeyboardArrowDown.name,
+                    modifier = Modifier
+                        .size(32.dp)
+                        .rotate(rotationSort),
+                    tint = colorSort
+                )
+            }
             DropdownMenu(
                 modifier = modifier
                     .width(220.dp)

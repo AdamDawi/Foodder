@@ -307,6 +307,7 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_4_API_31_-_Android_12" value="120" />
+                  <entry key="Pixel_7_API_31" value="120" />
                   <entry key="Pixel_7_API_34_-_Android_14" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
