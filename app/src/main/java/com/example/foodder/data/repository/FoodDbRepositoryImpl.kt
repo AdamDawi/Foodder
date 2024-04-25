@@ -11,7 +11,9 @@ class FoodDbRepositoryImpl(
     override suspend fun addMeal(mealEntity: MealEntity){
         mealDao.addMeal(mealEntity)
     }
-    override fun getAllMeals(): Flow<List<MealEntity>> = mealDao.getAllMeals()
+    override fun getAllMeals(): Flow<List<MealEntity>>{
+        return mealDao.getAllMeals()
+    }
     override fun getMealById(id: Int): Flow<MealEntity> = mealDao.getMealById(id)
     override suspend fun updateMeal(mealEntity: MealEntity){
         mealDao.updateMeal(mealEntity)

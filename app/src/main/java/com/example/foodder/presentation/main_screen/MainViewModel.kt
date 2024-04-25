@@ -1,5 +1,6 @@
 package com.example.foodder.presentation.main_screen
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -102,6 +103,7 @@ class MainViewModel @Inject constructor(
         //Swipe right
         if(state.value.cardOffset.x>OFFSET_LIMIT && !state.value.isLoading){
             viewModelScope.launch {
+                Log.e("adding in viewModel", state.value.meal.toString())
                 addMealUseCase(state.value.meal.toMealEntity())
             }
             getRandomFood()

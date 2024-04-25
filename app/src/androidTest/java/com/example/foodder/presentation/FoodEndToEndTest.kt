@@ -4,12 +4,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
+import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.printToLog
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeLeft
 import androidx.compose.ui.test.swipeRight
@@ -80,7 +83,9 @@ class FoodEndToEndTest {
     fun swipeCardToRight_deleteFromFavListAfterwards(){
         composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
         composeRule.onNodeWithContentDescription("List of favourite food").performClick()
-        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
+        composeRule.waitUntil(3000) {
+            composeRule.onNodeWithContentDescription("food").isDisplayed()
+        }
         composeRule.onNodeWithContentDescription("food").swipeLeft()
         composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
     }
@@ -90,7 +95,9 @@ class FoodEndToEndTest {
     fun swipeCardToRight_deleteFromFavListAfterwards_andUndoDelete_shouldNotDisplayFood(){
         composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
         composeRule.onNodeWithContentDescription("List of favourite food").performClick()
-        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
+        composeRule.waitUntil(3000) {
+            composeRule.onNodeWithContentDescription("food").isDisplayed()
+        }
         composeRule.onNodeWithContentDescription("food").swipeLeft()
         composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
         composeRule.onNodeWithText("Undo").performClick()
@@ -101,7 +108,10 @@ class FoodEndToEndTest {
     fun swipeCardToRight_deleteFromFavListAfterwards_andUndoDelete_refreshFoodList_shouldDisplayFood(){
         composeRule.onNodeWithTag(TestTags.MEAL_CARD).swipeRight()
         composeRule.onNodeWithContentDescription("List of favourite food").performClick()
-        composeRule.onNodeWithContentDescription("food").assertIsDisplayed()
+        composeRule.waitUntil(3000) {
+            composeRule.onNodeWithContentDescription("food").isDisplayed()
+        }
+        composeRule.onRoot().printToLog("test")
         composeRule.onNodeWithContentDescription("food").swipeLeft()
         composeRule.onNodeWithContentDescription("food").assertDoesNotExist()
         composeRule.onNodeWithText("Undo").performClick()
@@ -111,12 +121,12 @@ class FoodEndToEndTest {
     }
 
     private fun SemanticsNodeInteraction.swipeDown(){
-        this.performTouchInput { swipeDown(centerY, centerY + centerY, durationMillis= 500) }
+        this.performTouchInput { swipeDown(centerY, centerY + centerY, durationMillis= 1000) }
     }
     private fun SemanticsNodeInteraction.swipeRight(){
-        this.performTouchInput { swipeRight(centerX, centerX + centerX, durationMillis= 500) }
+        this.performTouchInput { swipeRight(centerX, centerX + centerX+ centerX, durationMillis= 1000) }
     }
     private fun SemanticsNodeInteraction.swipeLeft(){
-        this.performTouchInput { swipeLeft(centerX, -centerX - centerX, durationMillis= 500) }
+        this.performTouchInput { swipeLeft(centerX, -centerX - centerX, durationMillis= 1000) }
     }
 }

@@ -11,7 +11,9 @@ class AddMealUseCase @Inject constructor(
         if (meal.strMeal.isNotEmpty() &&
             meal.strMealThumb.isNotEmpty() &&
             meal.strInstructions.isNotEmpty()
-        )
+        ){
             repository.addMeal(meal) //adding when meal is valid
+        }
+
     }
 }

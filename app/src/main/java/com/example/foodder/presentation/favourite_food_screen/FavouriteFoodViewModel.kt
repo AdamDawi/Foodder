@@ -70,6 +70,7 @@ class FavouriteFoodViewModel @Inject constructor(
 
     private fun getCategories(){
         favouriteFoodScreenUseCases.getCategoriesUseCase().onEach { result ->
+
             when (result) {
                 is Resource.Success -> {
                     _state.value = _state.value.copy(

@@ -5,22 +5,6 @@
       <entry key="All Tests">
         <State />
       </entry>
-      <entry key="FoodEndToEndTest">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\adamd\.android\avd\Pixel_7_API_31.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-20T17:27:03.502367300Z" />
-        </State>
-      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -36,15 +20,6 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-21T11:01:04.928924400Z" />
         </State>
-      </entry>
-      <entry key="swipeCardToRight_deleteFromFavListAfterwards()">
-        <State />
-      </entry>
-      <entry key="swipeCardToRight_deleteFromFavListAfterwards_andUndoDelete_refreshFoodList_shouldDisplayFood()">
-        <State />
-      </entry>
-      <entry key="swipeCardToRight_deleteFromFavListAfterwards_andUndoDelete_shouldNotDisplayFood()">
-        <State />
       </entry>
     </value>
   </component>
