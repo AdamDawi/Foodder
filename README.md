@@ -80,7 +80,9 @@ git clone https://github.com/AdamDawi/Foodder
 !["Drop Menu Animation"](gifs/drop_menu.gif) !["Swipe to delete animation"](gifs/swipe_to_delete.gif)
 
 ## Requirements
-Android 10 (API level 25) or later📱
+Minimum version: Android 7.1 (API level 25) or later📱
+
+Target version: Android 14 (API level 34) or later📱
 
 ## Author
 
